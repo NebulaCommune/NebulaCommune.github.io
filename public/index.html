@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
+	<meta name="generator" content="Hugo 0.155.3"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ .Site.Title }}</title>
-    <!-- 内置样式，无需外部 CSS 文件 -->
+    <title>NebulaCommune | 星隅共学社区</title>
+    
     <style>
-        /* 全局样式 */
+         
         body {
             max-width: 1200px;
             margin: 0 auto;
@@ -16,7 +17,7 @@
             color: #333;
             background-color: #f9f9f9;
         }
-        /* 头部样式 */
+         
         .header {
             text-align: center;
             padding: 40px 0;
@@ -34,7 +35,7 @@
             color: #666;
             margin-top: 10px;
         }
-        /* 通用区块样式 */
+         
         section {
             background-color: #fff;
             padding: 30px;
@@ -52,14 +53,14 @@
             color: #444;
             margin-top: 0;
         }
-        /* 项目卡片网格 */
+         
         .project-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
             margin-top: 20px;
         }
-        /* 项目卡片样式 */
+         
         .project-card {
             padding: 20px;
             border: 1px solid #eee;
@@ -94,7 +95,7 @@
             font-size: 12px;
             color: #2f80ed;
         }
-        /* 社区生态样式 */
+         
         .community-group {
             margin-bottom: 20px;
             padding-bottom: 20px;
@@ -105,7 +106,7 @@
             padding-bottom: 0;
             border-bottom: none;
         }
-        /* 页脚样式 */
+         
         footer {
             text-align: center;
             padding: 20px;
@@ -115,7 +116,7 @@
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.03);
         }
-        /* 响应式适配 */
+         
         @media (max-width: 768px) {
             .project-grid {
                 grid-template-columns: 1fr;
@@ -130,13 +131,13 @@
     </style>
 </head>
 <body>
-    <!-- 头部：社区名称 + 简介 -->
+    
     <header class="header">
-        <h1>{{ .Site.Title }}</h1>
-        <p>{{ .Site.Params.description }}</p>
+        <h1>NebulaCommune | 星隅共学社区</h1>
+        <p>秉持开放包容、兼收并蓄的理念，汇聚多元思想，共筑协作成长的技术生态。</p>
     </header>
 
-    <!-- 关于我们 -->
+    
     <section class="about">
         <h2>关于我们</h2>
         <p>星隅共学社区（NebulaCommune）是一个开放包容的技术学习与协作社区。我们相信知识的价值在于分享与碰撞，致力于为每一位成员提供一个自由、互助的成长空间。</p>
@@ -147,37 +148,35 @@
         </ul>
     </section>
 
-    <!-- 核心项目：适配新版 Hugo 的 API 调用方式 -->
+    
     <section class="projects">
         <h2>核心项目</h2>
         <div class="project-grid">
-            {{/* 新版 Hugo 使用 resources.GetRemote + transform.Unmarshal + try 替代 getJSON */}}
-            {{ $apiUrl := .Site.Params.github_api_url }}
-            {{ $repos := slice }}
             
-            {{ with try (resources.GetRemote $apiUrl) }}
-                {{ if not .Err }}
-                    {{ $repos = .Value | transform.Unmarshal }}
-                {{ end }}
-            {{ end }}
+            
+            
+            
+            
+                
+                    
+                
+            
 
-            {{ if eq (len $repos) 0 }}
-                <p>获取项目列表失败，请稍后重试</p>
-            {{ else }}
-                {{ range $repos }}
-                    {{ if not .private }}  <!-- 只显示公开仓库 -->
+            
+                
+                      
                     <div class="project-card">
-                        <h3><a href="{{ .html_url }}" target="_blank">{{ .name }}</a></h3>
-                        <p class="project-desc">{{ default "暂无简介" .description }}</p>
-                        <span class="project-lang">{{ default "未知" .language }}</span>
+                        <h3><a href="https://github.com/NebulaCommune/NebulaCommune.github.io" target="_blank">NebulaCommune.github.io</a></h3>
+                        <p class="project-desc">星隅共学社区（NebulaCommune）官方主页，秉持开放包容、兼收并蓄的理念，汇聚多元思想，共筑协作成长的技术生态。</p>
+                        <span class="project-lang">HTML</span>
                     </div>
-                    {{ end }}
-                {{ end }}
-            {{ end }}
+                    
+                
+            
         </div>
     </section>
 
-    <!-- 社区生态 -->
+    
     <section class="community">
         <h2>社区生态</h2>
         <div class="community-group">
@@ -197,7 +196,7 @@
         </div>
     </section>
 
-    <!-- 加入我们 -->
+    
     <section class="join-us">
         <h2>加入我们</h2>
         <ol>

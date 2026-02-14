@@ -1,9 +1,13 @@
 baseURL = "https://nebula-commune.github.io/"
 languageCode = "zh-CN"
 title = "NebulaCommune | 星隅共学社区"
-theme = "ananke"  # 替换成你已有的主题（比如ananke/even等）
+
+# 禁用 taxonomies 避免 "found no layout file" 报错
+[taxonomies]
+  tag = ""
+  category = ""
 
 [params]
   description = "秉持开放包容、兼收并蓄的理念，汇聚多元思想，共筑协作成长的技术生态。"
-  github_org = "NebulaCommune"  # 你的组织名
-  github_api_url = "https://api.github.com/orgs/NebulaCommune/repos?per_page=100"  # GitHub API 地址
+  github_org = "NebulaCommune"
+  github_api_url = "https://api.github.com/orgs/NebulaCommune/repos?per_page=100"

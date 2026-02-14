@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ .Site.Title }}</title>
+    <link rel="stylesheet" href="{{ "css/style.css" | relURL }}">
+    <!-- 引入主题样式（根据你用的主题调整） -->
+    {{ partial "head.html" . }}
+</head>
+<body>
+    <!-- 头部：社区名称 + 简介 -->
+    <header class="header">
+        <h1>{{ .Site.Title }}</h1>
+        <p>{{ .Site.Params.description }}</p>
+    </header>
+
+    <!-- 关于我们 -->
+    <section class="about">
+        <h2>关于我们</h2>
+        <p>星隅共学社区（NebulaCommune）是一个开放包容的技术学习与协作社区。我们相信知识的价值在于分享与碰撞，致力于为每一位成员提供一个自由、互助的成长空间。</p>
+        <ul>
+            <li>核心理念：开放包容，兼收并蓄，共学共进</li>
+            <li>愿景：汇聚星光，共筑未来</li>
+            <li>使命：打造一个多元、协作、可持续的技术生态</li>
+        </ul>
+    </section>
+
+    <!-- 核心项目：自动从 GitHub API 拉取 -->
+    <section class="projects">
+        <h2>核心项目</h2>
+        <div class="project-grid">
+            {{ $repos := getJSON .Site.Params.github_api_url }}
+            {{ range $repos }}
+                {{ if not .private }}  <!-- 只显示公开仓库 -->
+                <div class="project-card">
+                    <h3><a href="{{ .html_url }}" target="_blank">{{ .name }}</a></h3>
+                    <p class="project-desc">{{ default "暂无简介" .description }}</p>
+                    <span class="project-lang">{{ default "未知" .language }}</span>
+                </div>
+                {{ end }}
+            {{ end }}
+        </div>
+    </section>
+
+    <!-- 社区生态 + 加入我们（和之前的内容一致） -->
+    <section class="community">
+        <h2>社区生态</h2>
+        <div class="community-group">
+            <h3>💬 NebulaCommune 水群</h3>
+            <p>定位：日常交流、资源共享与生活分享的轻松空间，是社区活力的源泉。</p>
+            <ul>
+                <li>课程作业与期末复习经验</li>
+                <li>科研/项目组队与技术选型</li>
+                <li>实习/校招面经与内推信息</li>
+                <li>工具推荐与效率提升技巧</li>
+            </ul>
+        </div>
+        <div class="community-group">
+            <h3>💬 NebulaCommune 核心群</h3>
+            <p>定位：核心成员的深度交流与协作平台，聚焦技术讨论、项目规划与社区治理。</p>
+            <p>氛围：专业、严谨、开放，鼓励深度思考与建设性反馈。</p>
+        </div>
+    </section>
+
+    <section class="join-us">
+        <h2>加入我们</h2>
+        <ol>
+            <li>贡献代码：Fork 我们的项目，提交 Pull Request，一起完善我们的开源资源。</li>
+            <li>分享资源：在 <code>awesome-resources</code> 仓库中，分享你发现的优质工具、书籍或网站。</li>
+            <li>参与讨论：加入我们的微信群聊，与大家一起学习、交流、成长。</li>
+            <li>提出建议：通过 Issue 或 Discussion，告诉我们你对社区的想法和建议。</li>
+        </ol>
+    </section>
+
+    <footer>
+        <p>欢迎 Star & Fork，与我们一起，在技术的星空中共同成长。</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,48 @@
+name: Deploy Hugo site to Pages
+
+on:
+  push:
+    branches: [main]  # 推送到main分支时自动构建
+  workflow_dispatch:
+
+# 设置权限
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 只保留最新的部署
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: true  # 拉取主题子模块
+          fetch-depth: 0
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: "latest"  # 使用最新版Hugo
+          extended: true
+
+      - name: Build
+        run: hugo --minify  # 构建静态文件（生成到public目录）
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./public
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

@@ -5,7 +5,6 @@
 ---
 
 ## 📋 目录
-
 - [关于我们](#关于我们)
 - [核心项目](#核心项目)
 - [社区生态](#社区生态)
@@ -26,18 +25,19 @@
 
 ## 核心项目
 
-| 项目名称                                                                        | 简介                                                                                                                                             | 技术栈                |
-| :------------------------------------------------------------------------------ | :----------------------------------------------------------------------------------------------------------------------------------------------- | :-------------------- |
-| **[NebulaCommune](https://github.com/NebulaCommune/NebulaCommune)**             | 星隅共学社区官方主页，展示我们的理念、项目与社区动态。                                                                                           | Markdown, MIT License |
-| **[awesome-resources](https://github.com/NebulaCommune/awesome-resources)**     | 整理分享实用软件、优质书籍与高效网站等资源，助力高效学习与工作。                                                                                 | Markdown, MIT License |
-| **[NebulaCommune-Daily](https://github.com/NebulaCommune/NebulaCommune-Daily)** | 星隅共学社微信群聊的每日总结：提炼群内核心讨论、学习洞见与社区动态。本仓库同时追踪我们 GitHub 项目的每日变化，持续演进，记录我们共同成长的轨迹。 | Python, MIT License   |
+| 项目名称 | 简介 | 技术栈 |
+| :--- | :--- | :--- |
+| **[NebulaCommune](https://github.com/NebulaCommune/NebulaCommune.github.io)** | 星隅共学社区官方主页，展示我们的理念、项目与社区动态。 | Markdown, Jekyll |
+| **[awesome-resources](https://github.com/NebulaCommune/awesome-resources)** | 整理分享实用软件、优质书籍与高效网站等资源，助力高效学习与工作。 | Markdown, MIT License |
+| **[NebulaCommune-Daily](https://github.com/NebulaCommune/NebulaCommune-Daily)** | 星隅共学社微信群聊的每日总结：提炼群内核心讨论、学习洞见与社区动态。本仓库同时追踪我们 GitHub 项目的每日变化，持续演进，记录我们共同成长的轨迹。 | Python, MIT License |
+| **[Embedded-Software](https://github.com/NebulaCommune/Embedded-Software)** | 嵌入式软件学习与实践仓库：涵盖单片机开发、RTOS、嵌入式Linux、驱动开发、通信协议等核心内容，记录从裸机到系统级的软件设计与实现过程。 | C, C++, Python, RTOS |
+| **[Embedded-Hardware](https://github.com/NebulaCommune/Embedded-Hardware)** | 嵌入式硬件学习与实践仓库：聚焦电路设计、PCB Layout、电源管理、传感器与外设选型，沉淀从原理图到实物的硬件开发全流程经验。 | Altium Designer, KiCad |
 
 ---
 
 ## 社区生态
 
-### 💬 NebulaCommune
-
+### 💬 NebulaCommune 
 - **定位**：日常交流、资源共享与生活分享的轻松空间，是社区活力的源泉。
 - **活跃话题**：
   - 课程作业与期末复习经验
@@ -70,5 +70,3 @@
 
 本仓库是星隅共学社区的官方主页，持续更新社区动态、核心项目与资源汇总。
 欢迎 Star & Fork，与我们一起，在技术的星空中共同成长。
-
----

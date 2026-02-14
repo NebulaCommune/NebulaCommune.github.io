@@ -1,7 +1,7 @@
 baseURL = "https://nebula-commune.github.io/"
 languageCode = "zh-CN"
 title = "NebulaCommune | 星隅共学社区"
-theme = "cactus"  # 替换成你已有的主题（比如ananke/even等）
+theme = "ananke"  # 替换成你已有的主题（比如ananke/even等）
 
 [params]
   description = "秉持开放包容、兼收并蓄的理念，汇聚多元思想，共筑协作成长的技术生态。"

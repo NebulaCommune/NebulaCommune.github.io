@@ -21,35 +21,10 @@
             line-height: 1.8;
             color: #e0e0e0;
              
-            background: 
-                url('https://picsum.photos/id/1039/1920/1080') center/cover no-repeat fixed,
-                url('https://picsum.photos/id/1046/1920/1080') center/cover no-repeat fixed,
-                url('https://picsum.photos/id/1015/1920/1080') center/cover no-repeat fixed;
-            background-blend-mode: overlay;
+            background: #050a20;
             min-height: 100vh;
             overflow-x: hidden;
             position: relative;
-        }
-
-         
-        .nebula-layer {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 120%;
-            height: 120%;
-            background: 
-                radial-gradient(circle at 20% 30%, rgba(120,119,198,0.15) 0%, transparent 40%),
-                radial-gradient(circle at 80% 70%, rgba(255,119,198,0.1) 0%, transparent 40%),
-                radial-gradient(circle at 40% 80%, rgba(119,200,255,0.08) 0%, transparent 40%);
-            z-index: -3;
-            animation: nebula-float 80s ease-in-out infinite alternate;
-        }
-
-        @keyframes nebula-float {
-            0% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(-20px, -10px) scale(1.05); }
-            100% { transform: translate(20px, 10px) scale(0.98); }
         }
 
          
@@ -59,306 +34,366 @@
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -2;
-        }
-
-         
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(10,14,39,0.85);
-            pointer-events: none;
-            z-index: -1;
-        }
-
-         
-        .mouse-glow {
-            position: fixed;
-            width: 700px;
-            height: 700px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(120,119,198,0.18) 0%, transparent 65%);
-            pointer-events: none;
             z-index: 0;
-            transform: translate(-50%, -50%);
-            transition: transform 0.12s ease-out, opacity 0.4s;
-            mix-blend-mode: screen;
-            opacity: 0;
         }
 
          
-        .menu-toggle {
-            display: none;
+        .menu-btn {
             position: fixed;
             top: 20px;
-            left: 20px;
-            z-index: 101;
-            background: rgba(120,119,198,0.8);
-            color: white;
+            right: 20px;
+            z-index: 1000;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #7877c6 0%, #5a58a8 100%);
             border: none;
-            padding: 10px 15px;
-            border-radius: 8px;
+            color: white;
+            font-size: 1.2rem;
             cursor: pointer;
+            box-shadow: 0 0 20px rgba(120,119,198,0.5);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .menu-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(120,119,198,0.7);
         }
 
          
-        .sidebar {
+        .nav-menu {
             position: fixed;
-            top: 0; left: 0;
-            width: 280px;
-            height: 100vh;
-            background: rgba(255,255,255,0.05);
+            top: 80px;
+            right: 20px;
+            z-index: 999;
+            width: 240px;
+            background: rgba(10,14,39,0.95);
             backdrop-filter: blur(12px);
-            border-right: 1px solid rgba(255,255,255,0.1);
-            padding: 40px 30px;
-            z-index: 100;
-            transition: transform 0.3s;
+            border-radius: 16px;
+            border: 1px solid rgba(120,119,198,0.3);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            padding: 20px;
+            display: none;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
         }
 
-        .sidebar h2 {
-            font-size: 1.5rem;
+        .nav-menu.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .nav-menu h3 {
+            font-size: 1.2rem;
             background: linear-gradient(90deg, #7877c6, #ff77c6);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 30px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid rgba(120,119,198,0.3);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(120,119,198,0.2);
+            text-align: center;
         }
 
-        .sidebar nav ul {
+        .nav-menu ul {
             list-style: none;
         }
 
-        .sidebar nav ul li {
-            margin-bottom: 15px;
+        .nav-menu ul li {
+            margin-bottom: 10px;
         }
 
-        .sidebar nav ul li a {
+        .nav-menu ul li a {
             color: #b0b0c0;
             text-decoration: none;
-            font-size: 1.1rem;
-            padding: 10px 15px;
-            border-radius: 10px;
+            font-size: 1rem;
+            padding: 8px 12px;
+            border-radius: 8px;
             display: block;
-            transition: 0.3s;
-            cursor: pointer;
+            transition: all 0.2s ease;
         }
 
-        .sidebar nav ul li a:hover,
-        .sidebar nav ul li a.active {
+        .nav-menu ul li a:hover,
+        .nav-menu ul li a.active {
             background: rgba(120,119,198,0.2);
             color: #fff;
             transform: translateX(5px);
         }
 
          
-        .main-content {
-            margin-left: 280px;
-            padding: 40px;
-            max-width: 1200px;
+        .nebula-container {
             position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             z-index: 1;
         }
 
          
-        .nebula-card {
-            background: rgba(255,255,255,0.05);
-            backdrop-filter: blur(12px);
-            padding: 30px 40px;
-            border-radius: 24px;
-            border: 1px solid rgba(255,255,255,0.1);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-            margin-bottom: 40px;
-            transition: all 0.4s ease;
-            opacity: 0;
-            transform: translateY(40px);
-            cursor: pointer;  
+        .center-title {
+            position: absolute;
+            z-index: 2;
+            text-align: center;
+        }
+
+        .center-title h1 {
+            font-size: 3rem;
+            background: linear-gradient(90deg, #7877c6, #ff77c6, #77c6ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(120,119,198,0.3);
+        }
+
+        .center-title p {
+            color: #a0a0c0;
+            font-size: 1.1rem;
+        }
+
+         
+        .orbit {
             position: relative;
-            overflow: hidden;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+             
+             
         }
 
          
-        .nebula-card.visible {
-            opacity: 1;
-            transform: translateY(0);
+        .nebula-planet {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            z-index: 3;
+             
+            background: none;
+            border: none;
+            box-shadow: none;
         }
 
          
-        .nebula-card:hover {
-            border-color: rgba(120,119,198,0.5);
-            box-shadow: 0 16px 40px rgba(120,119,198,0.25);
+        .planet-core {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow: 0 0 40px rgba(120,119,198,0.3);
+            animation: planet-pulse 6s ease-in-out infinite alternate;
         }
 
          
-        .nebula-card h2 {
+        #about .planet-core {
+            background: radial-gradient(circle at 30% 30%, rgba(120,119,198,0.8) 0%, rgba(80,79,150,0.4) 100%);
+        }
+
+        #projects .planet-core {
+            background: radial-gradient(circle at 30% 30%, rgba(255,119,198,0.8) 0%, rgba(180,80,140,0.4) 100%);
+        }
+
+        #community .planet-core {
+            background: radial-gradient(circle at 30% 30%, rgba(119,200,255,0.8) 0%, rgba(80,140,180,0.4) 100%);
+        }
+
+        #contributors .planet-core {
+            background: radial-gradient(circle at 30% 30%, rgba(119,255,198,0.8) 0%, rgba(80,180,140,0.4) 100%);
+        }
+
+        #links .planet-core {
+            background: radial-gradient(circle at 30% 30%, rgba(255,200,119,0.8) 0%, rgba(180,140,80,0.4) 100%);
+        }
+
+        #join .planet-core {
+            background: radial-gradient(circle at 30% 30%, rgba(200,119,255,0.8) 0%, rgba(140,80,180,0.4) 100%);
+        }
+
+         
+        @keyframes planet-pulse {
+            0% { transform: scale(1); box-shadow: 0 0 40px rgba(120,119,198,0.3); }
+            100% { transform: scale(1.08); box-shadow: 0 0 60px rgba(120,119,198,0.5); }
+        }
+
+         
+        .nebula-planet:hover {
+            transform: scale(1.15);
+            z-index: 4;
+        }
+
+         
+        .planet-title {
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            pointer-events: none;
+        }
+
+         
+        .planet-brief {
+            color: rgba(255,255,255,0.8);
+            font-size: 0.75rem;
+            margin-top: 5px;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+            pointer-events: none;
+        }
+
+         
+        #about { top: 0; left: 50%; transform: translate(-50%, -50%); }
+        #projects { top: 25%; right: 10%; transform: translate(50%, -50%); }
+        #community { bottom: 25%; right: 10%; transform: translate(50%, 50%); }
+        #contributors { bottom: 0; left: 50%; transform: translate(-50%, 50%); }
+        #links { bottom: 25%; left: 10%; transform: translate(-50%, 50%); }
+        #join { top: 25%; left: 10%; transform: translate(-50%, -50%); }
+
+         
+        .planet-detail {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10,14,39,0.95);
+            backdrop-filter: blur(12px);
+            z-index: 100;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .planet-detail.active {
+            display: flex;
+        }
+
+        .detail-content {
+            max-width: 800px;
+            width: 100%;
+            padding: 40px;
+            border-radius: 24px;
+            border: 1px solid rgba(120,119,198,0.3);
+            background: rgba(10,14,39,0.8);
+            box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+        }
+
+        .detail-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid rgba(120,119,198,0.2);
+        }
+
+        .detail-header h2 {
             font-size: 2.2rem;
             background: linear-gradient(90deg, #7877c6, #ff77c6);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 0;  
-            padding-bottom: 15px;
-            border-bottom: 2px solid rgba(120,119,198,0.3);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        }
+
+        .close-detail {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .close-detail:hover {
+            background: rgba(255,255,255,0.2);
+            transform: rotate(90deg);
         }
 
          
-        .card-toggle-icon {
-            font-size: 1.5rem;
-            transition: transform 0.3s ease;
-        }
-
-        .nebula-card.expanded .card-toggle-icon {
-            transform: rotate(180deg);
-        }
-
-         
-        .card-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease, margin-top 0.3s ease;
-            margin-top: 0;
-            padding-top: 0;
-        }
-
-         
-        .nebula-card.expanded .card-content {
-            max-height: 5000px;  
-            margin-top: 25px;
-            padding-top: 15px;
-        }
-
-         
-        .card-content h3 {
+        .detail-body h3 {
             color: #d0d0e0;
             margin-bottom: 15px;
+            font-size: 1.5rem;
         }
 
-        .card-content p,
-        .card-content li {
+        .detail-body p,
+        .detail-body li {
             color: #c0c0d0;
             margin-bottom: 12px;
+            font-size: 1.1rem;
         }
 
-        .project-grid {
+        .project-grid, .links-grid, .contributor-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin-top: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
         }
 
-        .project-card {
-            padding: 25px;
-            background: rgba(255,255,255,0.08);
-            backdrop-filter: blur(10px);
-            border-radius: 16px;
-            border: 1px solid rgba(255,255,255,0.1);
-            transition: 0.3s;
+        .project-card, .link-card, .contributor-card {
+            padding: 20px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            border: 1px solid rgba(120,119,198,0.2);
+            transition: all 0.3s ease;
         }
 
-        .project-card:hover {
-            transform: translateY(-6px);
+        .project-card:hover, .link-card:hover, .contributor-card:hover {
+            transform: translateY(-5px);
             border-color: rgba(120,119,198,0.5);
         }
 
-        .project-card a {
+        .project-card a, .link-card a {
             color: #7877c6;
             font-weight: 600;
             text-decoration: none;
         }
 
-        .project-card a:hover {
+        .project-card a:hover, .link-card a:hover {
             color: #ff77c6;
         }
 
-        .project-desc {
+        .project-desc, .link-desc {
             color: #a0a0c0;
             font-size: 0.95rem;
+            margin-top: 10px;
         }
 
         .project-lang {
             display: inline-block;
-            padding: 6px 12px;
+            padding: 5px 10px;
             background: rgba(120,119,198,0.2);
-            border-radius: 20px;
+            border-radius: 16px;
             font-size: 0.85rem;
             color: #c0c0e0;
-        }
-
-         
-        .links-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin-top: 30px;
-        }
-
-        .link-card {
-            padding: 25px;
-            background: rgba(255,255,255,0.08);
-            backdrop-filter: blur(10px);
-            border-radius: 16px;
-            border: 1px solid rgba(255,255,255,0.1);
-            transition: 0.3s;
-            text-align: center;
-        }
-
-        .link-card:hover {
-            transform: translateY(-6px);
-            border-color: rgba(120,119,198,0.5);
-        }
-
-        .link-card a {
-            color: #7877c6;
-            font-weight: 600;
-            text-decoration: none;
-            font-size: 1.1rem;
-            display: block;
-            margin-bottom: 10px;
-        }
-
-        .link-card a:hover {
-            color: #ff77c6;
-        }
-
-        .link-desc {
-            color: #a0a0c0;
-            font-size: 0.95rem;
-        }
-
-         
-        .contributor-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 15px;
-            margin-top: 30px;
-        }
-
-        .contributor-card {
-            padding: 25px;
-            background: rgba(255,255,255,0.08);
-            backdrop-filter: blur(10px);
-            border-radius: 16px;
-            border: 1px solid rgba(255,255,255,0.1);
-            text-align: center;
-            transition: 0.3s;
-        }
-
-        .contributor-card:hover {
-            transform: translateY(-6px);
-            border-color: rgba(120,119,198,0.5);
+            margin-top: 10px;
         }
 
         .contributor-avatar {
-            width: 80px;
-            height: 80px;
+            width: 70px;
+            height: 70px;
             border-radius: 50%;
-            margin: 0 auto 15px;
+            margin: 0 auto 10px;
             object-fit: cover;
             border: 2px solid rgba(120,119,198,0.4);
         }
@@ -367,24 +402,35 @@
             font-size: 1.1rem;
             font-weight: 600;
             color: #e0e0e0;
-            margin-bottom: 8px;
+            text-align: center;
+            margin-bottom: 5px;
         }
 
         .contributor-desc {
             font-size: 0.9rem;
             color: #a0a0c0;
+            text-align: center;
             margin-bottom: 10px;
         }
 
         .contributor-github {
-            display: inline-block;
+            display: block;
             color: #7877c6;
             font-size: 0.9rem;
             text-decoration: none;
+            text-align: center;
         }
 
         .contributor-github:hover {
             color: #ff77c6;
+        }
+
+        .community-group {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
          
@@ -404,61 +450,86 @@
             to { transform: rotate(360deg); }
         }
 
-        .community-group {
-            margin-bottom: 30px;
-            padding: 25px;
-            background: rgba(255,255,255,0.05);
-            border-radius: 16px;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-
-        footer {
-            text-align: center;
-            padding: 30px;
-            background: rgba(255,255,255,0.05);
-            backdrop-filter: blur(10px);
-            border-radius: 24px;
-            border: 1px solid rgba(255,255,255,0.1);
-            color: #8080a0;
-            opacity: 0;
-            transform: translateY(40px);
-            transition: 0.6s ease;
-            margin-top: 20px;
-        }
-
-        footer.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
          
-        @media (max-width: 1024px) {
-            .menu-toggle {
-                display: block;
+        @media (max-width: 768px) {
+             
+            .orbit {
+                width: 400px;
+                height: 400px;
             }
-            .sidebar {
-                transform: translateX(-100%);
+
+            .nebula-planet {
+                width: 90px;
+                height: 90px;
             }
-            .sidebar.active {
-                transform: translateX(0);
+
+            .center-title h1 {
+                font-size: 2rem;
             }
-            .main-content {
-                margin-left: 0;
+
+            .center-title p {
+                font-size: 0.9rem;
+            }
+
+            .planet-title {
+                font-size: 0.85rem;
+            }
+
+            .planet-brief {
+                font-size: 0.65rem;
+            }
+
+             
+            #about { top: 0; left: 50%; }
+            #projects { top: 20%; right: 5%; }
+            #community { bottom: 20%; right: 5%; }
+            #contributors { bottom: 0; left: 50%; }
+            #links { bottom: 20%; left: 5%; }
+            #join { top: 20%; left: 5%; }
+
+             
+            .planet-detail {
                 padding: 20px;
             }
-            .mouse-glow {
-                display: none;
+
+            .detail-content {
+                padding: 20px;
             }
-            .nebula-layer {
-                animation-duration: 120s;
-            }
-             
-            .sidebar, .nebula-card, .project-card, .link-card, .contributor-card, .community-group, footer {
-                backdrop-filter: none;
-            }
-             
-            .nebula-card h2 {
+
+            .detail-header h2 {
                 font-size: 1.8rem;
+            }
+
+             
+            .nav-menu {
+                width: 200px;
+                right: 10px;
+            }
+
+            .menu-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .orbit {
+                width: 300px;
+                height: 300px;
+            }
+
+            .nebula-planet {
+                width: 70px;
+                height: 70px;
+            }
+
+            .planet-title {
+                font-size: 0.75rem;
+            }
+
+            .planet-brief {
+                display: none;
             }
         }
     </style>
@@ -466,38 +537,92 @@
 
 <body>
     
-    <div class="nebula-layer"></div>
-    
     <canvas id="stars"></canvas>
-    
-    <div class="mouse-glow" id="mouseGlow"></div>
-    
-    <button class="menu-toggle">☰</button>
 
     
-    <aside class="sidebar">
-        <h2>NebulaCommune</h2>
-        <nav>
-            <ul>
-                <li><a data-target="about" class="nav-link">关于我们</a></li>
-                <li><a data-target="projects" class="nav-link">核心项目</a></li>
-                <li><a data-target="community" class="nav-link">社区生态</a></li>
-                <li><a data-target="contributors" class="nav-link">贡献者</a></li>
-                <li><a data-target="links" class="nav-link">友情链接</a></li>
-                <li><a data-target="join" class="nav-link">加入我们</a></li>
-            </ul>
-        </nav>
-    </aside>
+    <button class="menu-btn" id="menuBtn">☰</button>
 
     
-    <main class="main-content">
+    <div class="nav-menu" id="navMenu">
+        <h3>NebulaCommune</h3>
+        <ul>
+            <li><a data-target="about" class="nav-link">关于我们</a></li>
+            <li><a data-target="projects" class="nav-link">核心项目</a></li>
+            <li><a data-target="community" class="nav-link">社区生态</a></li>
+            <li><a data-target="contributors" class="nav-link">贡献者</a></li>
+            <li><a data-target="links" class="nav-link">友情链接</a></li>
+            <li><a data-target="join" class="nav-link">加入我们</a></li>
+        </ul>
+    </div>
+
+    
+    <div class="nebula-container">
         
-        <section id="about" class="nebula-card">
-            <h2>
-                关于我们
-                <span class="card-toggle-icon">▼</span>
-            </h2>
-            <div class="card-content">
+        <div class="center-title">
+            <h1>NebulaCommune</h1>
+            <p>汇聚星光 · 共筑未来</p>
+        </div>
+
+        
+        <div class="orbit">
+            
+            <div class="nebula-planet" id="about" data-target="about-detail">
+                <div class="planet-core">
+                    <div class="planet-title">关于我们</div>
+                    <div class="planet-brief">开放包容的社区</div>
+                </div>
+            </div>
+
+            
+            <div class="nebula-planet" id="projects" data-target="projects-detail">
+                <div class="planet-core">
+                    <div class="planet-title">核心项目</div>
+                    <div class="planet-brief">共建开源成果</div>
+                </div>
+            </div>
+
+            
+            <div class="nebula-planet" id="community" data-target="community-detail">
+                <div class="planet-core">
+                    <div class="planet-title">社区生态</div>
+                    <div class="planet-brief">轻松交流协作</div>
+                </div>
+            </div>
+
+            
+            <div class="nebula-planet" id="contributors" data-target="contributors-detail">
+                <div class="planet-core">
+                    <div class="planet-title">贡献者</div>
+                    <div class="planet-brief">感谢星光同行者</div>
+                </div>
+            </div>
+
+            
+            <div class="nebula-planet" id="links" data-target="links-detail">
+                <div class="planet-core">
+                    <div class="planet-title">友情链接</div>
+                    <div class="planet-brief">连接技术同好</div>
+                </div>
+            </div>
+
+            
+            <div class="nebula-planet" id="join" data-target="join-detail">
+                <div class="planet-core">
+                    <div class="planet-title">加入我们</div>
+                    <div class="planet-brief">与我们共成长</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="planet-detail" id="about-detail">
+        <div class="detail-content">
+            <div class="detail-header">
+                <h2>关于我们</h2>
+                <button class="close-detail">×</button>
+            </div>
+            <div class="detail-body">
                 <p>星隅共学社区（NebulaCommune）是一个开放包容的技术学习与协作社区。我们相信知识的价值在于分享与碰撞，致力于为每一位成员提供一个自由、互助的成长空间。</p>
                 <ul>
                     <li>核心理念：开放包容，兼收并蓄，共学共进</li>
@@ -505,15 +630,17 @@
                     <li>使命：打造一个多元、协作、可持续的技术生态</li>
                 </ul>
             </div>
-        </section>
+        </div>
+    </div>
 
-        
-        <section id="projects" class="nebula-card">
-            <h2>
-                核心项目
-                <span class="card-toggle-icon">▼</span>
-            </h2>
-            <div class="card-content">
+    
+    <div class="planet-detail" id="projects-detail">
+        <div class="detail-content">
+            <div class="detail-header">
+                <h2>核心项目</h2>
+                <button class="close-detail">×</button>
+            </div>
+            <div class="detail-body">
                 <div class="project-grid">
                     
                     
@@ -536,15 +663,17 @@
                     
                 </div>
             </div>
-        </section>
+        </div>
+    </div>
 
-        
-        <section id="community" class="nebula-card">
-            <h2>
-                社区生态
-                <span class="card-toggle-icon">▼</span>
-            </h2>
-            <div class="card-content">
+    
+    <div class="planet-detail" id="community-detail">
+        <div class="detail-content">
+            <div class="detail-header">
+                <h2>社区生态</h2>
+                <button class="close-detail">×</button>
+            </div>
+            <div class="detail-body">
                 <div class="community-group">
                     <h3>💬 NebulaCommune 水群</h3>
                     <p>日常交流、资源共享与生活分享的轻松空间。</p>
@@ -560,30 +689,34 @@
                     <p>核心成员深度交流平台，聚焦技术、项目与社区治理。</p>
                 </div>
             </div>
-        </section>
+        </div>
+    </div>
 
-        
-        <section id="contributors" class="nebula-card">
-            <h2>
-                贡献者
-                <span class="card-toggle-icon">▼</span>
-            </h2>
-            <div class="card-content">
+    
+    <div class="planet-detail" id="contributors-detail">
+        <div class="detail-content">
+            <div class="detail-header">
+                <h2>贡献者</h2>
+                <button class="close-detail">×</button>
+            </div>
+            <div class="detail-body">
                 <p>感谢每一位为 NebulaCommune 贡献力量的伙伴 ✨</p>
                 <div class="contributor-grid" id="contributorGrid">
                     <div class="loading-spinner"></div>
                     <p style="text-align: center;">正在加载贡献者数据...</p>
                 </div>
             </div>
-        </section>
+        </div>
+    </div>
 
-        
-        <section id="links" class="nebula-card">
-            <h2>
-                友情链接
-                <span class="card-toggle-icon">▼</span>
-            </h2>
-            <div class="card-content">
+    
+    <div class="planet-detail" id="links-detail">
+        <div class="detail-content">
+            <div class="detail-header">
+                <h2>友情链接</h2>
+                <button class="close-detail">×</button>
+            </div>
+            <div class="detail-body">
                 <div class="links-grid">
                     <div class="link-card">
                         <a href="https://duckweed-yhb.github.io/" target="_blank">Duckweed's Blog</a>
@@ -591,15 +724,17 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </div>
 
-        
-        <section id="join" class="nebula-card">
-            <h2>
-                加入我们
-                <span class="card-toggle-icon">▼</span>
-            </h2>
-            <div class="card-content">
+    
+    <div class="planet-detail" id="join-detail">
+        <div class="detail-content">
+            <div class="detail-header">
+                <h2>加入我们</h2>
+                <button class="close-detail">×</button>
+            </div>
+            <div class="detail-body">
                 <ol>
                     <li>贡献代码：Fork 项目，提交 Pull Request</li>
                     <li>分享资源：在 awesome-resources 分享优质内容</li>
@@ -607,12 +742,8 @@
                     <li>提出建议：通过 Issue 告诉我们你的想法</li>
                 </ol>
             </div>
-        </section>
-
-        <footer id="footer">
-            <p>欢迎 Star & Fork，与我们一起，在技术的星空中共同成长。</p>
-        </footer>
-    </main>
+        </div>
+    </div>
 
     <script>
         
@@ -648,14 +779,6 @@
             }
         };
 
-        const debounce = (fn, delay = 50) => {
-            let timer = null;
-            return (...args) => {
-                clearTimeout(timer);
-                timer = setTimeout(() => fn.apply(this, args), delay);
-            };
-        };
-
         const fetchWithTimeout = (url, options = {}) => {
             return Promise.race([
                 fetch(url, options),
@@ -672,25 +795,26 @@
         const starsArr = [];
         
         const isLowPerformance = navigator.hardwareConcurrency < 4 || window.innerWidth < 768;
-        const starCount = isLowPerformance ? 60 : 180;
+        const starCount = isLowPerformance ? 150 : 400;
 
         class Star {
             constructor(){
                 this.x = Math.random()*w;
                 this.y = Math.random()*h;
-                this.r = Math.random()*1.2;
-                this.speed = Math.random()*0.3;
+                this.r = Math.random()*1.5;
+                this.speed = Math.random()*0.2;
+                this.alpha = Math.random();
             }
             draw(){
                 if (!ctx) return;
                 ctx.beginPath();
                 ctx.arc(this.x,this.y,this.r,0,Math.PI*2);
-                ctx.fillStyle = '#fff';
-                ctx.globalAlpha = Math.random();
+                ctx.fillStyle = `rgba(255,255,255,${this.alpha})`;
                 ctx.fill();
             }
             update(){
                 this.y += this.speed;
+                this.alpha = Math.sin(Date.now() * 0.001 + this.x * 0.1) * 0.5 + 0.5;
                 if(this.y > h) this.y = 0;
                 this.draw();
             }
@@ -727,93 +851,80 @@
         };
 
         
-        try {
-            const glow = document.getElementById('mouseGlow');
-            document.addEventListener('mousemove',e=>{
-                glow.style.opacity = 1;
-                glow.style.left = e.clientX+'px';
-                glow.style.top = e.clientY+'px';
-            });
-            document.addEventListener('mouseleave',()=>{
-                glow.style.opacity = 0;
-            });
-        } catch (e) {
-            console.error('鼠标光晕初始化失败:', e);
-        }
-
-        
-        const menuToggle = document.querySelector('.menu-toggle');
-        const sidebar = document.querySelector('.sidebar');
-        if (menuToggle && sidebar) {
-            menuToggle.addEventListener('click', () => {
-                sidebar.classList.toggle('active');
-            });
-        }
-
-        
-        const nebulaCards = document.querySelectorAll('.nebula-card');
+        const menuBtn = document.getElementById('menuBtn');
+        const navMenu = document.getElementById('navMenu');
         const navLinks = document.querySelectorAll('.nav-link');
 
         
-        nebulaCards.forEach(card => {
-            
-            card.classList.add('visible');
-            
-            
-            card.addEventListener('click', function(e) {
+        menuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            navMenu.classList.toggle('active');
+        });
+
+        
+        document.addEventListener('click', (e) => {
+            if (!navMenu.contains(e.target) && e.target !== menuBtn) {
+                navMenu.classList.remove('active');
+            }
+        });
+
+        
+        const planets = document.querySelectorAll('.nebula-planet');
+        const planetDetails = document.querySelectorAll('.planet-detail');
+        const closeButtons = document.querySelectorAll('.close-detail');
+
+        
+        planets.forEach(planet => {
+            planet.addEventListener('click', () => {
+                const targetId = planet.getAttribute('data-target');
+                showPlanetDetail(targetId);
                 
-                if (e.target.tagName === 'A' || e.target.closest('a')) return;
                 
-                this.classList.toggle('expanded');
-                
-                
-                if (this.classList.contains('expanded')) {
-                    scrollToCardCenter(this);
-                }
+                updateNavActive(planet.id);
                 
                 
-                updateNavActive(this.id);
+                navMenu.classList.remove('active');
             });
         });
 
         
         navLinks.forEach(link => {
-            link.addEventListener('click', function() {
-                const targetId = this.getAttribute('data-target');
-                const targetCard = document.getElementById(targetId);
-                
-                if (targetCard) {
-                    
-                    targetCard.classList.add('expanded');
-                    
-                    nebulaCards.forEach(card => {
-                        if (card.id !== targetId) {
-                            card.classList.remove('expanded');
-                        }
-                    });
-                    
-                    scrollToCardCenter(targetCard);
-                    
+            link.addEventListener('click', () => {
+                const targetId = link.getAttribute('data-target');
+                const planet = document.getElementById(targetId);
+                if (planet) {
+                    const detailId = planet.getAttribute('data-target');
+                    showPlanetDetail(detailId);
                     updateNavActive(targetId);
-                    
-                    if (sidebar && sidebar.classList.contains('active')) {
-                        sidebar.classList.remove('active');
-                    }
+                    navMenu.classList.remove('active');
                 }
             });
         });
 
         
-        function scrollToCardCenter(card) {
-            const cardRect = card.getBoundingClientRect();
-            const cardCenter = cardRect.top + window.pageYOffset + (cardRect.height / 2);
-            const viewportCenter = window.innerHeight / 2;
-            const scrollToY = cardCenter - viewportCenter;
-
-            window.scrollTo({
-                top: scrollToY,
-                behavior: 'smooth'
+        closeButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const detail = btn.closest('.planet-detail');
+                detail.classList.remove('active');
+                
+                document.body.style.overflow = '';
             });
+        });
+
+        
+        function showPlanetDetail(detailId) {
+            
+            planetDetails.forEach(detail => {
+                detail.classList.remove('active');
+            });
+            
+            
+            const targetDetail = document.getElementById(detailId);
+            if (targetDetail) {
+                targetDetail.classList.add('active');
+                
+                document.body.style.overflow = 'hidden';
+            }
         }
 
         
@@ -825,19 +936,6 @@
                 }
             });
         }
-
-        
-        function checkVisible(){
-            
-            const footer = document.getElementById('footer');
-            const footerRect = footer.getBoundingClientRect();
-            if (footerRect.top < window.innerHeight * 0.75) {
-                footer.classList.add('visible');
-            }
-        }
-
-        window.addEventListener('scroll', debounce(checkVisible));
-        window.addEventListener('load', checkVisible);
 
         
         async function fetchContributors() {
@@ -914,7 +1012,7 @@
                 console.error('获取贡献者失败:', err);
                 repoGrid.innerHTML = `
                     <div class="contributor-card">
-                        <img class="contributor-avatar" src="https://picsum.photos/80/80" alt="默认头像">
+                        <img class="contributor-avatar" src="https://picsum.photos/70/70" alt="默认头像">
                         <div class="contributor-name">加载失败</div>
                         <div class="contributor-desc">请稍后刷新页面</div>
                         <a class="contributor-github" href="https://github.com/${CONFIG.orgName}" target="_blank">查看组织</a>
@@ -938,7 +1036,7 @@
                 
                 card.innerHTML = `
                     <img class="contributor-avatar" 
-                         src="https://picsum.photos/80/80" 
+                         src="https://picsum.photos/70/70" 
                          data-src="${c.avatar}" 
                          alt="${c.login}" 
                          loading="lazy">

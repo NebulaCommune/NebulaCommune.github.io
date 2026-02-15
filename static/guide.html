@@ -16,7 +16,7 @@
             color: #e0e0e0;
             line-height: 1.8;
             padding: 40px 20px;
-            max-width: 800px;
+            max-width: 1000px;
             margin: 0 auto;
         }
         h1 {
@@ -25,15 +25,23 @@
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
+            text-align: center;
         }
         h2 {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             color: #d0d0e0;
-            margin: 30px 0 15px;
+            margin: 40px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(120,119,198,0.3);
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
+        }
+        h3 {
+            font-size: 1.4rem;
+            color: #b0b0e0;
+            margin: 25px 0 15px;
         }
         p, li {
             color: #c0c0d0;
@@ -41,7 +49,43 @@
             font-size: 1.1rem;
         }
         ol, ul {
-            padding-left: 24px;
+            padding-left: 30px;
+            margin-bottom: 15px;
+        }
+        pre {
+            background: rgba(0,0,0,0.5);
+            border: 1px solid rgba(120,119,198,0.2);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            overflow-x: auto;
+            color: #e0e0e0;
+        }
+        code {
+            background: rgba(0,0,0,0.4);
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #ff77c6;
+        }
+        pre code {
+            background: transparent;
+            padding: 0;
+            color: #e0e0e0;
+        }
+        a {
+            color: #7877c6;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        a:hover {
+            color: #ff77c6;
+            text-decoration: underline;
+        }
+        img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin: 15px 0;
+            border: 1px solid rgba(120,119,198,0.2);
         }
         .back-btn {
             position: fixed;
@@ -54,41 +98,282 @@
             color: white;
             text-decoration: none;
             transition: all 0.3s ease;
+            z-index: 999;
         }
         .back-btn:hover {
             background: rgba(120,119,198,0.4);
+            text-decoration: none;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid rgba(120,119,198,0.3);
+            text-align: left;
+        }
+        th {
+            background: rgba(120,119,198,0.1);
+            color: #d0d0e0;
+        }
+        hr {
+            border: none;
+            border-top: 1px solid rgba(120,119,198,0.2);
+            margin: 30px 0;
         }
     </style>
 </head>
 <body>
     <a href="/" class="back-btn">← 返回首页</a>
 
-    <h1>贡献指南</h1>
+    <h1>NebulaCommune 贡献指南（GitHub Desktop + VS Code）</h1>
 
-    <h2>💡 如何贡献</h2>
-    <p>欢迎每一位小伙伴参与 NebulaCommune 的建设，以下是几种常见的贡献方式：</p>
-    <ol>
-        <li><strong>提交代码</strong>：Fork 项目，创建分支，提交 PR 合并到主分支。</li>
-        <li><strong>分享资源</strong>：在 awesome-resources 仓库中添加学习资料、工具推荐等。</li>
-        <li><strong>参与讨论</strong>：在 Issues 或社区群中提出问题、分享经验、帮助他人。</li>
-        <li><strong>完善文档</strong>：补充项目 README、使用指南或技术文章。</li>
-        <li><strong>反馈建议</strong>：通过 Issues 提交功能建议或 Bug 反馈。</li>
-    </ol>
+    <hr>
 
-    <h2>📋 贡献流程</h2>
-    <ol>
-        <li>在 GitHub 上 Fork 目标仓库。</li>
-        <li>克隆到本地，创建新分支（如 `feature/add-xxx`）。</li>
-        <li>完成开发或修改后，提交 commit（建议使用清晰的 commit 信息）。</li>
-        <li>Push 到你的 Fork 仓库。</li>
-        <li>在原仓库创建 Pull Request，等待 Review 和合并。</li>
-    </ol>
+    <h2>一、NebulaCommune 组织页面介绍</h2>
+    <p>当你访问 <a href="https://github.com/NebulaCommune" target="_blank">NebulaCommune GitHub 组织主页</a> 时，会看到以下核心板块：</p>
+    <img src="组织主页.png" alt="组织主页">
 
-    <h2>📌 注意事项</h2>
+    <h3>1. 组织概览（Overview）</h3>
     <ul>
-        <li>遵守项目的代码规范和提交规范。</li>
-        <li>大型功能建议先在 Issues 中讨论，避免重复开发。</li>
-        <li>保持友好和尊重的社区氛围，共同维护良好的协作环境。</li>
+        <li><strong>头像与名称</strong>：星云主题头像 +「星隅共学社」名称，代表我们的社区定位。</li>
+        <li><strong>简介</strong>：
+            <blockquote>
+                我们是一群热爱探索的大学生，聚成一片名为「星云」的共同体。在这里，我们不只钻研前沿技术，也分享阅读感悟、记录成长轨迹，甚至一起玩乐与创造。我们相信，真正的成长不止于技术，更在于思想的碰撞与彼此的陪伴。开放、包容、面向未来，是我们的底色。
+            </blockquote>
+        </li>
+        <li><strong>联系方式</strong>：邮箱 <code>3071974740@qq.com</code>，可用于联系组织管理员。</li>
     </ul>
+
+    <h3>2. 顶部导航栏</h3>
+    <ul>
+        <li><strong>Repositories（仓库）</strong>：显示组织下的所有公开/私有仓库。</li>
+        <li><strong>People（成员）</strong>：列出组织内的所有成员，可查看大家的 GitHub 主页。</li>
+        <li><strong>Teams（团队）</strong>：按项目或兴趣划分的协作小组（如「前端组」「文档组」）。</li>
+        <li><strong>Insights（洞察）</strong>：统计组织的贡献数据、代码提交趋势等。</li>
+        <li><strong>Settings（设置）</strong>：仅管理员可见，用于管理组织权限、仓库等。</li>
+    </ul>
+
+    <hr>
+
+    <h2>二、以 <code>NebulaCommune.github.io</code> 为例的仓库界面介绍</h2>
+    <p>先进入组织主页，然后点击Repositories（仓库），出现下边的页面之后，</p>
+    <img src="仓库界面.png" alt="仓库界面">
+    <p>点击进入 <code>NebulaCommune.github.io</code> 仓库（即官网项目），核心界面如下：</p>
+    <img src="仓库页面.png" alt="仓库页面">
+
+    <h3>1. 顶部导航栏（仓库内）</h3>
+    <ul>
+        <li><strong>Code（代码）</strong>：当前页面，显示仓库的文件结构、提交历史等。</li>
+        <li><strong>Issues（问题）</strong>：用于提交 Bug 反馈、功能建议或讨论。</li>
+        <li><strong>Pull requests（合并请求）</strong>：查看和管理代码贡献的 PR。</li>
+        <li><strong>Actions（自动化）</strong>：查看自动部署、CI/CD 等工作流的运行状态。</li>
+        <li><strong>Settings（设置）</strong>：仅管理员可见，用于配置仓库权限、分支保护等。</li>
+    </ul>
+
+    <h3>2. 中央文件区</h3>
+    <ul>
+        <li><strong>分支与标签</strong>：左上角显示当前分支（如 <code>main</code>），可切换分支或查看标签。</li>
+        <li><strong>文件列表</strong>：
+            <ul>
+                <li><code>.github/workflows</code>：GitHub Actions 自动化配置文件。</li>
+                <li><code>assets/css</code>：项目样式文件。</li>
+                <li><code>content</code>：Hugo 站点的 Markdown 内容（如文章、页面）。</li>
+                <li><code>layouts</code>：Hugo 模板文件（如首页、详情页布局）。</li>
+                <li><code>public</code>：Hugo 构建生成的静态站点文件。</li>
+                <li><code>README.md</code>：项目说明文档，包含项目介绍、使用方法等。</li>
+            </ul>
+        </li>
+        <li><strong>提交历史</strong>：每个文件右侧显示最近一次提交的信息（如“再度优化组织首页”）。</li>
+    </ul>
+
+    <h3>3. 右侧信息区</h3>
+    <ul>
+        <li><strong>About（关于）</strong>：项目简介：
+            <blockquote>
+                星隅共学社区（NebulaCommune）官方主页，秉持开放包容、兼收并蓄的理念，汇聚多元思想，共筑协作成长的技术生态。
+            </blockquote>
+        </li>
+        <li><strong>License（许可证）</strong>：项目采用 MIT 开源协议。</li>
+        <li><strong>Fork / Star / Watch</strong>：可收藏项目、关注更新或 Fork 到个人账号进行贡献。</li>
+    </ul>
+
+    <hr>
+
+    <h2>三、准备工作</h2>
+
+    <h3>1. 安装必要工具</h3>
+    <ul>
+        <li><strong>GitHub Desktop</strong>：图形化 Git 客户端，简化代码拉取、提交和推送操作</li>
+        <li><strong>VS Code</strong>：代码编辑器，用于编写和修改项目文件</li>
+        <li>注册并登录 GitHub 账号，确保你是 NebulaCommune 组织成员或已 Fork 目标仓库</li>
+    </ul>
+
+    <h3>2. 配置 GitHub Desktop</h3>
+    <ol>
+        <li>打开 GitHub Desktop，登录你的 GitHub 账号</li>
+        <li>在 <code>File > Options > Git</code> 中确认 Git 路径已正确配置</li>
+        <li>在 <code>File > Options > Integrations</code> 中，将“External editor”设置为 VS Code</li>
+    </ol>
+
+    <hr>
+
+    <h2>四、GitHub Desktop 界面介绍</h2>
+    <p>打开 GitHub Desktop 后，核心区域如下：</p>
+    <ol>
+        <li><strong>左侧仓库列表</strong>：显示你克隆到本地的所有仓库，点击可切换当前操作的仓库。</li>
+        <li><strong>顶部分支栏</strong>：显示当前所在分支，点击下拉菜单可切换分支、创建新分支。</li>
+        <li><strong>中央修改区</strong>：
+            <ul>
+                <li>左侧：列出本次修改的所有文件，勾选可选择要提交的文件。</li>
+                <li>右侧：显示选中文件的具体修改内容（diff），绿色为新增，红色为删除。</li>
+            </ul>
+        </li>
+        <li><strong>底部提交区</strong>：
+            <ul>
+                <li><code>Summary</code>：必填，填写本次提交的核心信息（如“完善贡献指南文档”）。</li>
+                <li><code>Description</code>：可选，填写更详细的修改说明。</li>
+                <li><code>Commit to [分支名]</code>：提交按钮，将修改提交到本地仓库。</li>
+            </ul>
+        </li>
+        <li><strong>右上角操作区</strong>：
+            <ul>
+                <li><code>Fetch origin</code> / <code>Pull origin</code>：拉取远程仓库的最新代码。</li>
+                <li><code>Push origin</code>：将本地提交推送到远程仓库。</li>
+                <li><code>Create Pull Request</code>：发起合并请求，将你的代码贡献到主仓库。</li>
+            </ul>
+        </li>
+    </ol>
+
+    <hr>
+
+    <h2>五、VS Code 界面介绍</h2>
+    <p>打开项目文件夹后，VS Code 的核心界面如下：</p>
+    <ol>
+        <li><strong>左侧活动栏</strong>：
+            <ul>
+                <li><strong>资源管理器</strong>：显示项目文件结构，可新建、删除、重命名文件。</li>
+                <li><strong>源代码管理</strong>：查看 Git 状态、暂存文件、提交修改（也可直接用 GitHub Desktop 操作）。</li>
+                <li><strong>扩展</strong>：安装插件增强功能（如 Markdown 预览、代码格式化工具）。</li>
+            </ul>
+        </li>
+        <li><strong>中央编辑区</strong>：编写和修改代码/文档的核心区域，支持多标签页切换。</li>
+        <li><strong>底部状态栏</strong>：
+            <ul>
+                <li>显示当前分支、Git 状态（如“已修改 2 个文件”）。</li>
+                <li>点击可快速切换分支、拉取/推送代码。</li>
+            </ul>
+        </li>
+        <li><strong>终端</strong>：可打开内置终端执行 Git 命令（如 <code>git status</code>、<code>git log</code>），适合熟悉命令行的用户。</li>
+    </ol>
+
+    <hr>
+
+    <h2>六、获取项目代码</h2>
+
+    <h3>1. Fork 仓库（首次贡献）</h3>
+    <ol>
+        <li>打开浏览器，访问 <code>NebulaCommune/NebulaCommune.github.io</code> 仓库</li>
+        <li>点击右上角的 <strong>Fork</strong> 按钮，将仓库 Fork 到你的个人 GitHub 账号下</li>
+    </ol>
+
+    <h3>2. 克隆到本地（可以跳过Fork仓库这个步骤 直接进行克隆到本地 这里以awesome-online-courses为例）</h3>
+    <ol>
+        <li>打开 GitHub Desktop （Github Desktop页面如下）</li>
+        <img src="Github Desktop页面.png" alt="Github Desktop页面">
+        <li>点击 <code>File > Clone repository...</code></li>
+        <li>在弹出的窗口中，选择你 Fork 的仓库（如 <code>your-username/NebulaCommune.github.io</code>），这里以<code>awesom-online-source</code>仓库为例</li>
+        <img src="克隆页面.png" alt="克隆页面">
+        <li>点击<code>Choose</code>可以选择本地存储路径，点击 <strong>Clone</strong> 完成克隆 （克隆完成的页面如下，可以发现左上角已经变成<code>awesome-online-source</code>）</li>
+        <img src="克隆完成的页面.png" alt="克隆完成的页面">
+    </ol>
+
+    <hr>
+
+    <h2>七、开始贡献</h2>
+
+    <h3>1. 创建新分支（可以不创建新分支，而是直接开始编辑代码）</h3>
+    <ol>
+        <li>在 GitHub Desktop 顶部的当前分支下拉菜单中，点击 <strong>New branch</strong></li>
+        <li>输入分支名称（建议遵循 <code>类型/描述</code> 格式，如 <code>feature/add-contribution-guide</code> 或 <code>fix/typo-in-readme</code>）</li>
+        <li>点击 <strong>Create branch</strong>，GitHub Desktop 会自动切换到新分支</li>
+    </ol>
+
+    <h3>2. 使用 VS Code 编辑代码</h3>
+    <ol>
+        <li>在 GitHub Desktop 中，点击 <code>Repository > Open in Visual Studio Code</code>，或直接在 VS Code 中打开项目文件夹</li>
+        <img src="VScode页面.png" alt="VScode页面">
+        <li>在 VS Code 中进行代码修改、文档完善或资源添加（这里我以README.md为例）</li>
+        <li>保存所有修改（<code>Ctrl+S</code> / <code>Cmd+S</code>）（修改后的页面如下）</li>
+        <img src="修改后的页面.png" alt="修改后的页面">
+    </ol>
+
+    <hr>
+
+    <h2>八、提交与推送</h2>
+
+    <h3>1. 查看修改</h3>
+    <ol>
+        <li>回到 GitHub Desktop，左侧面板会显示所有修改的文件</li>
+        <img src="提交界面.png" alt="提交界面">
+        <li>点击文件名可查看具体修改内容（diff），确认修改无误</li>
+    </ol>
+
+    <h3>2. 提交到本地仓库</h3>
+    <ol>
+        <li>在底部或者说头像右边的“Summary”输入框中，填写清晰的提交信息（如：“完善贡献指南文档，补充 GitHub Desktop 操作步骤”）</li>
+        <li>（可选）在“Description”中填写更详细的修改说明</li>
+        <li>点击 <strong>Commit to [分支名]</strong>，将修改提交到本地分支，也就是点击下边的蓝色按钮</li>
+    </ol>
+
+    <h3>3. 推送到远程仓库</h3>
+    <img src="Push页面.png" alt="Push页面">
+    <ol>
+        <li>点击 GitHub Desktop 右上角的 <strong>Publish branch</strong>（首次推送）或 <strong>Push origin</strong>（后续推送）</li>
+        <li>等待推送完成，你的代码就会同步到你 Fork 的远程仓库</li>
+    </ol>
+
+    <hr>
+
+    <h2>九、发起 Pull Request</h2>
+
+    <h3>1. 创建 PR</h3>
+    <ol>
+        <li>推送完成后，GitHub Desktop 会提示“Create a Pull Request”，点击该按钮</li>
+        <li>浏览器会自动打开 GitHub 页面，确认目标仓库为 <code>NebulaCommune/NebulaCommune.github.io</code>，目标分支为 <code>main</code></li>
+        <li>检查 PR 标题和描述，确保清晰说明修改内容和目的</li>
+        <li>点击 <strong>Create pull request</strong> 提交 PR</li>
+    </ol>
+
+    <h3>2. 等待 Review</h3>
+    <ol>
+        <li>项目维护者会对你的 PR 进行 Review，可能会提出修改建议</li>
+        <li>如果需要修改，在本地对应分支上继续修改，然后重复“提交-推送”步骤，新的提交会自动添加到该 PR 中</li>
+        <li>PR 被合并后，你可以在 GitHub Desktop 中切换回 <code>main</code> 分支，并拉取最新代码（<code>Fetch origin</code>）</li>
+    </ol>
+
+    <hr>
+
+    <h2>十、常见问题与注意事项</h2>
+    <ol>
+        <li><strong>分支同步</strong>：在开始新的贡献前，始终确保你的 <code>main</code> 分支是最新的，避免代码冲突
+            <pre><code># 在 GitHub Desktop 中切换到 main 分支，点击 Fetch origin，然后 Pull origin</code></pre>
+        </li>
+        <li><strong>提交规范</strong>：保持每个提交只做一件事，提交信息清晰简洁，便于维护者 Review</li>
+        <li><strong>大型修改</strong>：对于大型功能或重构，建议先在 Issues 中与维护者讨论，避免重复开发</li>
+        <li><strong>代码规范</strong>：遵守项目的代码风格和提交规范，确保代码质量</li>
+    </ol>
+
+    <hr>
+
+    <h2>十一、总结流程</h2>
+    <ol>
+        <li><strong>Fork 仓库</strong> → 2. <strong>克隆到本地</strong> → 3. <strong>创建新分支</strong> → 4. <strong>VS Code 编辑</strong> → 5. <strong>提交到本地</strong> → 6. <strong>推送到远程</strong> → 7. <strong>发起 PR</strong> → 8. <strong>等待 Review & 合并</strong></li>
+    </ol>
+
+    <hr>
+
 </body>
 </html>

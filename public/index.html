@@ -20,9 +20,36 @@
             font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
             line-height: 1.8;
             color: #e0e0e0;
-            background: url('https://picsum.photos/id/1015/1920/1080') center/cover fixed;
+             
+            background: 
+                url('https://picsum.photos/id/1039/1920/1080') center/cover no-repeat fixed,
+                url('https://picsum.photos/id/1046/1920/1080') center/cover no-repeat fixed,
+                url('https://picsum.photos/id/1015/1920/1080') center/cover no-repeat fixed;
+            background-blend-mode: overlay;
             min-height: 100vh;
             overflow-x: hidden;
+            position: relative;
+        }
+
+         
+        .nebula-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 120%;
+            height: 120%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(120,119,198,0.15) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(255,119,198,0.1) 0%, transparent 40%),
+                radial-gradient(circle at 40% 80%, rgba(119,200,255,0.08) 0%, transparent 40%);
+            z-index: -3;
+            animation: nebula-float 80s ease-in-out infinite alternate;
+        }
+
+        @keyframes nebula-float {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-20px, -10px) scale(1.05); }
+            100% { transform: translate(20px, 10px) scale(0.98); }
         }
 
          
@@ -41,7 +68,7 @@
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background: rgba(10,14,39,0.75);
+            background: rgba(10,14,39,0.85);
             pointer-events: none;
             z-index: -1;
         }
@@ -117,6 +144,7 @@
             border-radius: 10px;
             display: block;
             transition: 0.3s;
+            cursor: pointer;
         }
 
         .sidebar nav ul li a:hover,
@@ -139,44 +167,80 @@
         .nebula-card {
             background: rgba(255,255,255,0.05);
             backdrop-filter: blur(12px);
-            padding: 40px;
+            padding: 30px 40px;
             border-radius: 24px;
             border: 1px solid rgba(255,255,255,0.1);
             box-shadow: 0 8px 32px rgba(0,0,0,0.3);
             margin-bottom: 40px;
-            transition: 0.4s ease;
+            transition: all 0.4s ease;
             opacity: 0;
             transform: translateY(40px);
+            cursor: pointer;  
+            position: relative;
+            overflow: hidden;
         }
 
+         
         .nebula-card.visible {
             opacity: 1;
             transform: translateY(0);
         }
 
+         
         .nebula-card:hover {
             border-color: rgba(120,119,198,0.5);
             box-shadow: 0 16px 40px rgba(120,119,198,0.25);
         }
 
+         
         .nebula-card h2 {
             font-size: 2.2rem;
             background: linear-gradient(90deg, #7877c6, #ff77c6);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 25px;
+            margin-bottom: 0;  
             padding-bottom: 15px;
             border-bottom: 2px solid rgba(120,119,198,0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .nebula-card h3 {
+         
+        .card-toggle-icon {
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .nebula-card.expanded .card-toggle-icon {
+            transform: rotate(180deg);
+        }
+
+         
+        .card-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease, margin-top 0.3s ease;
+            margin-top: 0;
+            padding-top: 0;
+        }
+
+         
+        .nebula-card.expanded .card-content {
+            max-height: 5000px;  
+            margin-top: 25px;
+            padding-top: 15px;
+        }
+
+         
+        .card-content h3 {
             color: #d0d0e0;
             margin-bottom: 15px;
         }
 
-        .nebula-card p,
-        .nebula-card li {
+        .card-content p,
+        .card-content li {
             color: #c0c0d0;
             margin-bottom: 12px;
         }
@@ -226,6 +290,120 @@
             color: #c0c0e0;
         }
 
+         
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .link-card {
+            padding: 25px;
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: 0.3s;
+            text-align: center;
+        }
+
+        .link-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(120,119,198,0.5);
+        }
+
+        .link-card a {
+            color: #7877c6;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 1.1rem;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .link-card a:hover {
+            color: #ff77c6;
+        }
+
+        .link-desc {
+            color: #a0a0c0;
+            font-size: 0.95rem;
+        }
+
+         
+        .contributor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .contributor-card {
+            padding: 25px;
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .contributor-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(120,119,198,0.5);
+        }
+
+        .contributor-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            object-fit: cover;
+            border: 2px solid rgba(120,119,198,0.4);
+        }
+
+        .contributor-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #e0e0e0;
+            margin-bottom: 8px;
+        }
+
+        .contributor-desc {
+            font-size: 0.9rem;
+            color: #a0a0c0;
+            margin-bottom: 10px;
+        }
+
+        .contributor-github {
+            display: inline-block;
+            color: #7877c6;
+            font-size: 0.9rem;
+            text-decoration: none;
+        }
+
+        .contributor-github:hover {
+            color: #ff77c6;
+        }
+
+         
+        .loading-spinner {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(120,119,198,0.2);
+            border-radius: 50%;
+            border-top-color: #7877c6;
+            animation: spin 1s ease-in-out infinite;
+            margin: 20px auto;
+            display: block;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
         .community-group {
             margin-bottom: 30px;
             padding: 25px;
@@ -245,6 +423,7 @@
             opacity: 0;
             transform: translateY(40px);
             transition: 0.6s ease;
+            margin-top: 20px;
         }
 
         footer.visible {
@@ -270,15 +449,24 @@
             .mouse-glow {
                 display: none;
             }
+            .nebula-layer {
+                animation-duration: 120s;
+            }
              
-            .sidebar, .nebula-card, .project-card, .community-group, footer {
+            .sidebar, .nebula-card, .project-card, .link-card, .contributor-card, .community-group, footer {
                 backdrop-filter: none;
+            }
+             
+            .nebula-card h2 {
+                font-size: 1.8rem;
             }
         }
     </style>
 </head>
 
 <body>
+    
+    <div class="nebula-layer"></div>
     
     <canvas id="stars"></canvas>
     
@@ -291,78 +479,134 @@
         <h2>NebulaCommune</h2>
         <nav>
             <ul>
-                <li><a href="#about" class="nav-link">关于我们</a></li>
-                <li><a href="#projects" class="nav-link">核心项目</a></li>
-                <li><a href="#community" class="nav-link">社区生态</a></li>
-                <li><a href="#join" class="nav-link">加入我们</a></li>
+                <li><a data-target="about" class="nav-link">关于我们</a></li>
+                <li><a data-target="projects" class="nav-link">核心项目</a></li>
+                <li><a data-target="community" class="nav-link">社区生态</a></li>
+                <li><a data-target="contributors" class="nav-link">贡献者</a></li>
+                <li><a data-target="links" class="nav-link">友情链接</a></li>
+                <li><a data-target="join" class="nav-link">加入我们</a></li>
             </ul>
         </nav>
     </aside>
 
     
     <main class="main-content">
+        
         <section id="about" class="nebula-card">
-            <h2>关于我们</h2>
-            <p>星隅共学社区（NebulaCommune）是一个开放包容的技术学习与协作社区。我们相信知识的价值在于分享与碰撞，致力于为每一位成员提供一个自由、互助的成长空间。</p>
-            <ul>
-                <li>核心理念：开放包容，兼收并蓄，共学共进</li>
-                <li>愿景：汇聚星光，共筑未来</li>
-                <li>使命：打造一个多元、协作、可持续的技术生态</li>
-            </ul>
-        </section>
-
-        <section id="projects" class="nebula-card">
-            <h2>核心项目</h2>
-            <div class="project-grid">
-                
-                
-                
-                    
-                    
-                    
-                        
-                    
-                
-                
-                    
-                        
-                        <div class="project-card">
-                            <h3><a href="https://github.com/NebulaCommune/NebulaCommune.github.io" target="_blank">NebulaCommune.github.io</a></h3>
-                            <p class="project-desc">星隅共学社区（NebulaCommune）官方主页，秉持开放包容、兼收并蓄的理念，汇聚多元思想，共筑协作成长的技术生态。</p>
-                            <span class="project-lang">HTML</span>
-                        </div>
-                        
-                    
-                
-            </div>
-        </section>
-
-        <section id="community" class="nebula-card">
-            <h2>社区生态</h2>
-            <div class="community-group">
-                <h3>💬 NebulaCommune 水群</h3>
-                <p>日常交流、资源共享与生活分享的轻松空间。</p>
+            <h2>
+                关于我们
+                <span class="card-toggle-icon">▼</span>
+            </h2>
+            <div class="card-content">
+                <p>星隅共学社区（NebulaCommune）是一个开放包容的技术学习与协作社区。我们相信知识的价值在于分享与碰撞，致力于为每一位成员提供一个自由、互助的成长空间。</p>
                 <ul>
-                    <li>课程作业与期末复习经验</li>
-                    <li>科研/项目组队与技术选型</li>
-                    <li>实习/校招面经与内推信息</li>
-                    <li>工具推荐与效率提升技巧</li>
+                    <li>核心理念：开放包容，兼收并蓄，共学共进</li>
+                    <li>愿景：汇聚星光，共筑未来</li>
+                    <li>使命：打造一个多元、协作、可持续的技术生态</li>
                 </ul>
             </div>
-            <div class="community-group">
-                <h3>💬 NebulaCommune 核心群</h3>
-                <p>核心成员深度交流平台，聚焦技术、项目与社区治理。</p>
+        </section>
+
+        
+        <section id="projects" class="nebula-card">
+            <h2>
+                核心项目
+                <span class="card-toggle-icon">▼</span>
+            </h2>
+            <div class="card-content">
+                <div class="project-grid">
+                    
+                    
+                    
+                        
+                        
+                            
+                        
+                    
+                    
+                        
+                            
+                            <div class="project-card">
+                                <h3><a href="https://github.com/NebulaCommune/NebulaCommune.github.io" target="_blank">NebulaCommune.github.io</a></h3>
+                                <p class="project-desc">星隅共学社区（NebulaCommune）官方主页，秉持开放包容、兼收并蓄的理念，汇聚多元思想，共筑协作成长的技术生态。</p>
+                                <span class="project-lang">HTML</span>
+                            </div>
+                            
+                        
+                    
+                </div>
             </div>
         </section>
 
+        
+        <section id="community" class="nebula-card">
+            <h2>
+                社区生态
+                <span class="card-toggle-icon">▼</span>
+            </h2>
+            <div class="card-content">
+                <div class="community-group">
+                    <h3>💬 NebulaCommune 水群</h3>
+                    <p>日常交流、资源共享与生活分享的轻松空间。</p>
+                    <ul>
+                        <li>课程作业与期末复习经验</li>
+                        <li>科研/项目组队与技术选型</li>
+                        <li>实习/校招面经与内推信息</li>
+                        <li>工具推荐与效率提升技巧</li>
+                    </ul>
+                </div>
+                <div class="community-group">
+                    <h3>💬 NebulaCommune 核心群</h3>
+                    <p>核心成员深度交流平台，聚焦技术、项目与社区治理。</p>
+                </div>
+            </div>
+        </section>
+
+        
+        <section id="contributors" class="nebula-card">
+            <h2>
+                贡献者
+                <span class="card-toggle-icon">▼</span>
+            </h2>
+            <div class="card-content">
+                <p>感谢每一位为 NebulaCommune 贡献力量的伙伴 ✨</p>
+                <div class="contributor-grid" id="contributorGrid">
+                    <div class="loading-spinner"></div>
+                    <p style="text-align: center;">正在加载贡献者数据...</p>
+                </div>
+            </div>
+        </section>
+
+        
+        <section id="links" class="nebula-card">
+            <h2>
+                友情链接
+                <span class="card-toggle-icon">▼</span>
+            </h2>
+            <div class="card-content">
+                <div class="links-grid">
+                    <div class="link-card">
+                        <a href="https://duckweed-yhb.github.io/" target="_blank">Duckweed's Blog</a>
+                        <p class="link-desc">个人技术博客，分享学习与实践心得</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        
         <section id="join" class="nebula-card">
-            <h2>加入我们</h2>
-            <ol>
-                <li>贡献代码：Fork 项目，提交 Pull Request</li>
-                <li>分享资源：在 awesome-resources 分享优质内容</li>
-                <li>参与讨论：加入微信群，一起学习成长</li>
-                <li>提出建议：通过 Issue 告诉我们你的想法</li>
-            </ol>
+            <h2>
+                加入我们
+                <span class="card-toggle-icon">▼</span>
+            </h2>
+            <div class="card-content">
+                <ol>
+                    <li>贡献代码：Fork 项目，提交 Pull Request</li>
+                    <li>分享资源：在 awesome-resources 分享优质内容</li>
+                    <li>参与讨论：加入微信群，一起学习成长</li>
+                    <li>提出建议：通过 Issue 告诉我们你的想法</li>
+                </ol>
+            </div>
         </section>
 
         <footer id="footer">
@@ -372,11 +616,64 @@
 
     <script>
         
+        const CONFIG = {
+            orgName: 'NebulaCommune',
+            cacheKeys: {
+                contributors: 'nebula_contributors_cache',
+                contributorsTime: 'nebula_contributors_cache_time'
+            },
+            apiBaseUrl: 'https://api.github.com',
+            cacheExpireMs: 24 * 60 * 60 * 1000,
+            batchSize: 5,
+            requestTimeout: 10000,
+            githubToken: ''
+        };
+
+        
+        const storage = {
+            get: (key) => {
+                try {
+                    return localStorage.getItem(key);
+                } catch (e) {
+                    console.warn('本地存储不可用:', e);
+                    return null;
+                }
+            },
+            set: (key, value) => {
+                try {
+                    localStorage.setItem(key, value);
+                } catch (e) {
+                    console.warn('本地存储不可用:', e);
+                }
+            }
+        };
+
+        const debounce = (fn, delay = 50) => {
+            let timer = null;
+            return (...args) => {
+                clearTimeout(timer);
+                timer = setTimeout(() => fn.apply(this, args), delay);
+            };
+        };
+
+        const fetchWithTimeout = (url, options = {}) => {
+            return Promise.race([
+                fetch(url, options),
+                new Promise((_, reject) => 
+                    setTimeout(() => reject(new Error('请求超时')), options.timeout || CONFIG.requestTimeout)
+                )
+            ]);
+        };
+
+        
         const canvas = document.getElementById('stars');
-        const ctx = canvas.getContext('2d');
-        let w = canvas.width = window.innerWidth;
-        let h = canvas.height = window.innerHeight;
+        const ctx = canvas.getContext?.('2d');
+        let w, h;
         const starsArr = [];
+        
+        const isLowPerformance = navigator.hardwareConcurrency < 4 || window.innerWidth < 768;
+        const starCount = isLowPerformance ? 60 : 180;
+
         class Star {
             constructor(){
                 this.x = Math.random()*w;
@@ -385,6 +682,7 @@
                 this.speed = Math.random()*0.3;
             }
             draw(){
+                if (!ctx) return;
                 ctx.beginPath();
                 ctx.arc(this.x,this.y,this.r,0,Math.PI*2);
                 ctx.fillStyle = '#fff';
@@ -397,64 +695,271 @@
                 this.draw();
             }
         }
-        function init(){
-            for(let i=0;i<180;i++) starsArr.push(new Star());
+
+        function initStars(){
+            if (!ctx) return;
+            starsArr.length = 0;
+            for(let i=0; i<starCount; i++) starsArr.push(new Star());
         }
-        function animate(){
+
+        function animateStars(){
+            if (!ctx) return;
             ctx.clearRect(0,0,w,h);
             starsArr.forEach(s=>s.update());
-            requestAnimationFrame(animate);
+            requestAnimationFrame(animateStars);
         }
-        init(); animate();
-        window.onresize = ()=>{
+
+        try {
             w = canvas.width = window.innerWidth;
             h = canvas.height = window.innerHeight;
-            starsArr.length = 0;
-            init();
+            initStars(); 
+            animateStars();
+        } catch (e) {
+            console.error('星空粒子初始化失败:', e);
+            canvas.style.display = 'none';
+        }
+
+        window.onresize = ()=>{
+            if (!ctx) return;
+            w = canvas.width = window.innerWidth;
+            h = canvas.height = window.innerHeight;
+            initStars();
         };
 
         
-        const glow = document.getElementById('mouseGlow');
-        document.addEventListener('mousemove',e=>{
-            glow.style.opacity = 1;
-            glow.style.left = e.clientX+'px';
-            glow.style.top = e.clientY+'px';
-        });
-        document.addEventListener('mouseleave',()=>{
-            glow.style.opacity = 0;
-        });
+        try {
+            const glow = document.getElementById('mouseGlow');
+            document.addEventListener('mousemove',e=>{
+                glow.style.opacity = 1;
+                glow.style.left = e.clientX+'px';
+                glow.style.top = e.clientY+'px';
+            });
+            document.addEventListener('mouseleave',()=>{
+                glow.style.opacity = 0;
+            });
+        } catch (e) {
+            console.error('鼠标光晕初始化失败:', e);
+        }
 
         
         const menuToggle = document.querySelector('.menu-toggle');
         const sidebar = document.querySelector('.sidebar');
-        menuToggle.addEventListener('click', () => {
-            sidebar.classList.toggle('active');
+        if (menuToggle && sidebar) {
+            menuToggle.addEventListener('click', () => {
+                sidebar.classList.toggle('active');
+            });
+        }
+
+        
+        const nebulaCards = document.querySelectorAll('.nebula-card');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        
+        nebulaCards.forEach(card => {
+            
+            card.classList.add('visible');
+            
+            
+            card.addEventListener('click', function(e) {
+                
+                if (e.target.tagName === 'A' || e.target.closest('a')) return;
+                
+                this.classList.toggle('expanded');
+                
+                
+                if (this.classList.contains('expanded')) {
+                    scrollToCardCenter(this);
+                }
+                
+                
+                updateNavActive(this.id);
+            });
         });
 
         
-        const cards = document.querySelectorAll('.nebula-card, footer');
-        const links = document.querySelectorAll('.nav-link');
-        function checkVisible(){
-            cards.forEach(el=>{
-                const rect = el.getBoundingClientRect();
-                if(rect.top < window.innerHeight*0.75){
-                    el.classList.add('visible');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                const targetId = this.getAttribute('data-target');
+                const targetCard = document.getElementById(targetId);
+                
+                if (targetCard) {
+                    
+                    targetCard.classList.add('expanded');
+                    
+                    nebulaCards.forEach(card => {
+                        if (card.id !== targetId) {
+                            card.classList.remove('expanded');
+                        }
+                    });
+                    
+                    scrollToCardCenter(targetCard);
+                    
+                    updateNavActive(targetId);
+                    
+                    if (sidebar && sidebar.classList.contains('active')) {
+                        sidebar.classList.remove('active');
+                    }
                 }
             });
-            let cur = '';
-            document.querySelectorAll('section[id]').forEach(el=>{
-                const rect = el.getBoundingClientRect();
-                if(rect.top < window.innerHeight/2 && rect.bottom>0){
-                    cur = el.id;
-                }
-            });
-            links.forEach(l=>{
-                l.classList.remove('active');
-                if(l.getAttribute('href') === '#'+cur) l.classList.add('active');
+        });
+
+        
+        function scrollToCardCenter(card) {
+            const cardRect = card.getBoundingClientRect();
+            const cardCenter = cardRect.top + window.pageYOffset + (cardRect.height / 2);
+            const viewportCenter = window.innerHeight / 2;
+            const scrollToY = cardCenter - viewportCenter;
+
+            window.scrollTo({
+                top: scrollToY,
+                behavior: 'smooth'
             });
         }
-        window.addEventListener('scroll',checkVisible);
-        window.addEventListener('load',checkVisible);
+
+        
+        function updateNavActive(activeId) {
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('data-target') === activeId) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        
+        function checkVisible(){
+            
+            const footer = document.getElementById('footer');
+            const footerRect = footer.getBoundingClientRect();
+            if (footerRect.top < window.innerHeight * 0.75) {
+                footer.classList.add('visible');
+            }
+        }
+
+        window.addEventListener('scroll', debounce(checkVisible));
+        window.addEventListener('load', checkVisible);
+
+        
+        async function fetchContributors() {
+            const repoGrid = document.getElementById('contributorGrid');
+            
+            const cachedData = storage.get(CONFIG.cacheKeys.contributors);
+            const cachedTime = storage.get(CONFIG.cacheKeys.contributorsTime);
+            const now = Date.now();
+
+            if (cachedData && cachedTime && (now - parseInt(cachedTime) < CONFIG.cacheExpireMs)) {
+                const contributors = JSON.parse(cachedData);
+                renderContributors(contributors);
+                return;
+            }
+
+            const requestOptions = {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/vnd.github.v3+json'
+                },
+                timeout: CONFIG.requestTimeout
+            };
+
+            if (CONFIG.githubToken) {
+                requestOptions.headers['Authorization'] = `token ${CONFIG.githubToken}`;
+            }
+
+            try {
+                const reposResp = await fetchWithTimeout(
+                    `${CONFIG.apiBaseUrl}/orgs/${CONFIG.orgName}/repos`, 
+                    requestOptions
+                );
+                
+                if (!reposResp.ok) throw new Error(`GitHub API 错误: ${reposResp.status}`);
+                const repos = await reposResp.json();
+
+                const contributorsMap = new Map();
+                const publicRepos = repos.filter(repo => !repo.private);
+
+                for (let i = 0; i < publicRepos.length; i += CONFIG.batchSize) {
+                    const batch = publicRepos.slice(i, i + CONFIG.batchSize);
+                    const batchPromises = batch.map(repo => 
+                        fetchWithTimeout(`${CONFIG.apiBaseUrl}/repos/${CONFIG.orgName}/${repo.name}/contributors`, requestOptions)
+                            .then(resp => resp.ok ? resp.json() : [])
+                            .catch(() => [])
+                    );
+
+                    const batchResults = await Promise.all(batchPromises);
+                    
+                    batchResults.forEach((contribs, idx) => {
+                        const repo = batch[idx];
+                        contribs.forEach(c => {
+                            if (contributorsMap.has(c.login)) {
+                                contributorsMap.get(c.login).repos.push(repo.name);
+                            } else {
+                                contributorsMap.set(c.login, {
+                                    login: c.login,
+                                    avatar: c.avatar_url,
+                                    html_url: c.html_url,
+                                    repos: [repo.name],
+                                    contributions: c.contributions
+                                });
+                            }
+                        });
+                    });
+                }
+
+                const contributors = Array.from(contributorsMap.values());
+                storage.set(CONFIG.cacheKeys.contributors, JSON.stringify(contributors));
+                storage.set(CONFIG.cacheKeys.contributorsTime, now.toString());
+                renderContributors(contributors);
+
+            } catch (err) {
+                console.error('获取贡献者失败:', err);
+                repoGrid.innerHTML = `
+                    <div class="contributor-card">
+                        <img class="contributor-avatar" src="https://picsum.photos/80/80" alt="默认头像">
+                        <div class="contributor-name">加载失败</div>
+                        <div class="contributor-desc">请稍后刷新页面</div>
+                        <a class="contributor-github" href="https://github.com/${CONFIG.orgName}" target="_blank">查看组织</a>
+                    </div>
+                `;
+            }
+        }
+
+        function renderContributors(contributors) {
+            const repoGrid = document.getElementById('contributorGrid');
+            repoGrid.innerHTML = '';
+
+            if (contributors.length === 0) {
+                repoGrid.innerHTML = '<p style="text-align: center;">暂无贡献者，期待你的加入 ✨</p>';
+                return;
+            }
+
+            contributors.forEach(c => {
+                const card = document.createElement('div');
+                card.className = 'contributor-card';
+                
+                card.innerHTML = `
+                    <img class="contributor-avatar" 
+                         src="https://picsum.photos/80/80" 
+                         data-src="${c.avatar}" 
+                         alt="${c.login}" 
+                         loading="lazy">
+                    <div class="contributor-name">${c.login}</div>
+                    <div class="contributor-desc">参与了 ${c.repos.length} 个仓库</div>
+                    <a class="contributor-github" href="${c.html_url}" target="_blank">GitHub</a>
+                `;
+                
+                const img = card.querySelector('img');
+                img.onload = () => {
+                    img.src = img.dataset.src;
+                };
+
+                repoGrid.appendChild(card);
+            });
+        }
+
+        
+        window.addEventListener('load', () => {
+            fetchContributors();
+        });
     </script>
 </body>
 </html>

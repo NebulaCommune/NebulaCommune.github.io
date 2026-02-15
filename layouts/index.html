@@ -213,6 +213,10 @@
             background: radial-gradient(circle at 30% 30%, rgba(119,200,255,0.8) 0%, rgba(80,140,180,0.4) 100%);
         }
 
+        #guide .planet-core {
+            background: radial-gradient(circle at 30% 30%, rgba(255, 119, 119, 0.8) 0%, rgba(180, 80, 80, 0.4) 100%);
+        }
+
         #contributors .planet-core {
             background: radial-gradient(circle at 30% 30%, rgba(119,255,198,0.8) 0%, rgba(80,180,140,0.4) 100%);
         }
@@ -255,13 +259,14 @@
             pointer-events: none;
         }
 
-        /* 星球位置布局 - 6个星球环绕 */
+        /* 星球位置布局 - 7个星球环绕 */
         #about { top: 0; left: 50%; transform: translate(-50%, -50%); }
-        #projects { top: 25%; right: 10%; transform: translate(50%, -50%); }
-        #community { bottom: 25%; right: 10%; transform: translate(50%, 50%); }
+        #projects { top: 15%; right: 15%; transform: translate(50%, -50%); }
+        #community { bottom: 15%; right: 15%; transform: translate(50%, 50%); }
+        #guide { bottom: 0; right: 30%; transform: translate(50%, 50%); }
         #contributors { bottom: 0; left: 50%; transform: translate(-50%, 50%); }
-        #links { bottom: 25%; left: 10%; transform: translate(-50%, 50%); }
-        #join { top: 25%; left: 10%; transform: translate(-50%, -50%); }
+        #links { bottom: 15%; left: 15%; transform: translate(-50%, 50%); }
+        #join { top: 15%; left: 15%; transform: translate(-50%, -50%); }
 
         /* 星球详情弹窗 */
         .planet-detail {
@@ -480,11 +485,12 @@
 
             /* 调整星球位置 */
             #about { top: 0; left: 50%; }
-            #projects { top: 20%; right: 5%; }
-            #community { bottom: 20%; right: 5%; }
+            #projects { top: 15%; right: 10%; }
+            #community { bottom: 15%; right: 10%; }
+            #guide { bottom: 0; right: 25%; }
             #contributors { bottom: 0; left: 50%; }
-            #links { bottom: 20%; left: 5%; }
-            #join { top: 20%; left: 5%; }
+            #links { bottom: 15%; left: 10%; }
+            #join { top: 15%; left: 10%; }
 
             /* 详情弹窗适配 */
             .planet-detail {
@@ -533,7 +539,6 @@
         }
     </style>
 </head>
-
 <body>
     <!-- 星空粒子背景 -->
     <canvas id="stars"></canvas>
@@ -548,6 +553,7 @@
             <li><a data-target="about" class="nav-link">关于我们</a></li>
             <li><a data-target="projects" class="nav-link">核心项目</a></li>
             <li><a data-target="community" class="nav-link">社区生态</a></li>
+            <li><a href="/guide.html" class="nav-link">贡献指南</a></li>
             <li><a data-target="contributors" class="nav-link">贡献者</a></li>
             <li><a data-target="links" class="nav-link">友情链接</a></li>
             <li><a data-target="join" class="nav-link">加入我们</a></li>
@@ -585,6 +591,14 @@
                 <div class="planet-core">
                     <div class="planet-title">社区生态</div>
                     <div class="planet-brief">轻松交流协作</div>
+                </div>
+            </div>
+
+            <!-- 贡献指南星球 -->
+            <div class="nebula-planet" id="guide" onclick="window.location.href='/guide.html'">
+                <div class="planet-core">
+                    <div class="planet-title">贡献指南</div>
+                    <div class="planet-brief">共建社区的方式</div>
                 </div>
             </div>
 
@@ -872,7 +886,7 @@
         });
 
         // ===================== 星球交互 =====================
-        const planets = document.querySelectorAll('.nebula-planet');
+        const planets = document.querySelectorAll('.nebula-planet:not(#guide)');
         const planetDetails = document.querySelectorAll('.planet-detail');
         const closeButtons = document.querySelectorAll('.close-detail');
 
@@ -892,7 +906,9 @@
 
         // 导航链接点击显示对应星球详情
         navLinks.forEach(link => {
-            link.addEventListener('click', () => {
+            link.addEventListener('click', (e) => {
+                if (link.getAttribute('href') === '/guide.html') return;
+                e.preventDefault();
                 const targetId = link.getAttribute('data-target');
                 const planet = document.getElementById(targetId);
                 if (planet) {

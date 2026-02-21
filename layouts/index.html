@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ .Site.Title }}</title>
     <style>
+        /* 基础重置 */
         * {
             margin: 0;
             padding: 0;
@@ -19,14 +20,13 @@
             font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
             line-height: 1.8;
             color: #e0e0e0;
-            /* 深空背景 */
             background: #050a20;
             min-height: 100vh;
             overflow-x: hidden;
             position: relative;
         }
 
-        /* 星空背景 */
+        /* 星空背景 - 优化性能 */
         #stars {
             position: fixed;
             top: 0;
@@ -34,9 +34,11 @@
             width: 100%;
             height: 100%;
             z-index: 0;
+            /* 硬件加速 */
+            transform: translateZ(0);
         }
 
-        /* 菜单按钮 - 全局悬浮 */
+        /* 菜单按钮 */
         .menu-btn {
             position: fixed;
             top: 20px;
@@ -55,6 +57,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            /* 硬件加速 */
+            transform: translateZ(0);
         }
 
         .menu-btn:hover {
@@ -62,7 +66,7 @@
             box-shadow: 0 0 30px rgba(120,119,198,0.7);
         }
 
-        /* 导航菜单弹窗 */
+        /* 导航菜单 */
         .nav-menu {
             position: fixed;
             top: 80px;
@@ -124,7 +128,7 @@
             transform: translateX(5px);
         }
 
-        /* 星球环绕容器 - 核心布局 */
+        /* 星球容器 */
         .nebula-container {
             position: relative;
             width: 100vw;
@@ -143,7 +147,7 @@
         }
 
         .center-title h1 {
-            font-size: 3rem;
+            font-size: clamp(2rem, 5vw, 3rem); /* 响应式字体 */
             background: linear-gradient(90deg, #7877c6, #ff77c6, #77c6ff);
             -webkit-background-clip: text;
             background-clip: text;
@@ -154,24 +158,22 @@
 
         .center-title p {
             color: #a0a0c0;
-            font-size: 1.1rem;
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
         }
 
         /* 星球轨道 */
         .orbit {
             position: relative;
-            width: 600px;
-            height: 600px;
+            width: clamp(300px, 80vw, 600px); /* 响应式轨道 */
+            height: clamp(300px, 80vw, 600px);
             border-radius: 50%;
-            /* 轨道辅助线（可选） */
-            /* border: 1px dashed rgba(120,119,198,0.2); */
         }
 
-        /* 星球样式 - 取消方框，纯圆形星球 */
+        /* 星球样式 */
         .nebula-planet {
             position: absolute;
-            width: 120px;
-            height: 120px;
+            width: clamp(70px, 15vw, 120px);
+            height: clamp(70px, 15vw, 120px);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -180,13 +182,12 @@
             cursor: pointer;
             transition: all 0.4s ease;
             z-index: 3;
-            /* 取消边框和背景框 */
             background: none;
             border: none;
             box-shadow: none;
         }
 
-        /* 星球核心 - 带光晕的圆形 */
+        /* 星球核心 */
         .planet-core {
             width: 100%;
             height: 100%;
@@ -200,66 +201,52 @@
             animation: planet-pulse 6s ease-in-out infinite alternate;
         }
 
-        /* 不同星球的差异化颜色 */
-        #about .planet-core {
-            background: radial-gradient(circle at 30% 30%, rgba(120,119,198,0.8) 0%, rgba(80,79,150,0.4) 100%);
-        }
+        /* 星球颜色差异化 */
+        #about .planet-core { background: radial-gradient(circle at 30% 30%, rgba(120,119,198,0.8) 0%, rgba(80,79,150,0.4) 100%); }
+        #projects .planet-core { background: radial-gradient(circle at 30% 30%, rgba(255,119,198,0.8) 0%, rgba(180,80,140,0.4) 100%); }
+        #community .planet-core { background: radial-gradient(circle at 30% 30%, rgba(119,200,255,0.8) 0%, rgba(80,140,180,0.4) 100%); }
+        #guide .planet-core { background: radial-gradient(circle at 30% 30%, rgba(255, 119, 119, 0.8) 0%, rgba(180, 80, 80, 0.4) 100%); }
+        #contributors .planet-core { background: radial-gradient(circle at 30% 30%, rgba(119,255,198,0.8) 0%, rgba(80,180,140,0.4) 100%); }
+        #links .planet-core { background: radial-gradient(circle at 30% 30%, rgba(255,200,119,0.8) 0%, rgba(180,140,80,0.4) 100%); }
+        #join .planet-core { background: radial-gradient(circle at 30% 30%, rgba(200,119,255,0.8) 0%, rgba(140,80,180,0.4) 100%); }
 
-        #projects .planet-core {
-            background: radial-gradient(circle at 30% 30%, rgba(255,119,198,0.8) 0%, rgba(180,80,140,0.4) 100%);
-        }
-
-        #community .planet-core {
-            background: radial-gradient(circle at 30% 30%, rgba(119,200,255,0.8) 0%, rgba(80,140,180,0.4) 100%);
-        }
-
-        #guide .planet-core {
-            background: radial-gradient(circle at 30% 30%, rgba(255, 119, 119, 0.8) 0%, rgba(180, 80, 80, 0.4) 100%);
-        }
-
-        #contributors .planet-core {
-            background: radial-gradient(circle at 30% 30%, rgba(119,255,198,0.8) 0%, rgba(80,180,140,0.4) 100%);
-        }
-
-        #links .planet-core {
-            background: radial-gradient(circle at 30% 30%, rgba(255,200,119,0.8) 0%, rgba(180,140,80,0.4) 100%);
-        }
-
-        #join .planet-core {
-            background: radial-gradient(circle at 30% 30%, rgba(200,119,255,0.8) 0%, rgba(140,80,180,0.4) 100%);
-        }
-
-        /* 星球光晕动画 */
+        /* 星球动画 */
         @keyframes planet-pulse {
             0% { transform: scale(1); box-shadow: 0 0 40px rgba(120,119,198,0.3); }
             100% { transform: scale(1.08); box-shadow: 0 0 60px rgba(120,119,198,0.5); }
         }
 
-        /* 星球悬浮效果 */
         .nebula-planet:hover {
             transform: scale(1.15);
             z-index: 4;
         }
 
-        /* 星球标题 - 直接镶嵌在星球上 */
+        /* 星球文字 */
         .planet-title {
             color: white;
-            font-size: 1rem;
+            font-size: clamp(0.75rem, 2vw, 1rem);
             font-weight: 600;
             text-shadow: 0 2px 4px rgba(0,0,0,0.5);
             pointer-events: none;
         }
 
-        /* 星球简短描述 */
         .planet-brief {
             color: rgba(255,255,255,0.8);
-            font-size: 0.75rem;
+            font-size: clamp(0.65rem, 1.5vw, 0.75rem);
             margin-top: 5px;
             text-shadow: 0 1px 2px rgba(0,0,0,0.5);
             pointer-events: none;
+            display: block;
         }
 
-        /* 星球位置布局 - 7个星球环绕 */
+        /* 移动端隐藏星球简短描述 */
+        @media (max-width: 480px) {
+            .planet-brief {
+                display: none;
+            }
+        }
+
+        /* 星球位置 - 适配响应式 */
         #about { top: 0; left: 50%; transform: translate(-50%, -50%); }
         #projects { top: 15%; right: 15%; transform: translate(50%, -50%); }
         #community { bottom: 15%; right: 15%; transform: translate(50%, 50%); }
@@ -268,7 +255,7 @@
         #links { bottom: 15%; left: 15%; transform: translate(-50%, 50%); }
         #join { top: 15%; left: 15%; transform: translate(-50%, -50%); }
 
-        /* 星球详情弹窗 */
+        /* 详情弹窗 */
         .planet-detail {
             position: fixed;
             top: 0;
@@ -281,7 +268,7 @@
             display: none;
             align-items: center;
             justify-content: center;
-            padding: 40px;
+            padding: clamp(20px, 5vw, 40px);
             overflow-y: auto;
         }
 
@@ -292,7 +279,7 @@
         .detail-content {
             max-width: 800px;
             width: 100%;
-            padding: 40px;
+            padding: clamp(20px, 5vw, 40px);
             border-radius: 24px;
             border: 1px solid rgba(120,119,198,0.3);
             background: rgba(10,14,39,0.8);
@@ -309,7 +296,7 @@
         }
 
         .detail-header h2 {
-            font-size: 2.2rem;
+            font-size: clamp(1.8rem, 4vw, 2.2rem);
             background: linear-gradient(90deg, #7877c6, #ff77c6);
             -webkit-background-clip: text;
             background-clip: text;
@@ -333,7 +320,7 @@
             transform: rotate(90deg);
         }
 
-        /* 详情内容样式 */
+        /* 详情内容 */
         .detail-body h3 {
             color: #d0d0e0;
             margin-bottom: 15px;
@@ -347,6 +334,7 @@
             font-size: 1.1rem;
         }
 
+        /* 网格布局 */
         .project-grid, .links-grid, .contributor-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -354,6 +342,7 @@
             margin-top: 20px;
         }
 
+        /* 卡片样式 */
         .project-card, .link-card, .contributor-card {
             padding: 20px;
             background: rgba(255,255,255,0.05);
@@ -393,6 +382,7 @@
             margin-top: 10px;
         }
 
+        /* 贡献者卡片 */
         .contributor-avatar {
             width: 70px;
             height: 70px;
@@ -429,6 +419,7 @@
             color: #ff77c6;
         }
 
+        /* 社区分组 */
         .community-group {
             margin-bottom: 25px;
             padding: 20px;
@@ -454,58 +445,32 @@
             to { transform: rotate(360deg); }
         }
 
-        /* 移动端适配 */
+        /* 错误提示 */
+        .error-message {
+            color: #ff7777;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        /* 重试按钮 */
+        .retry-btn {
+            display: block;
+            margin: 10px auto;
+            padding: 8px 16px;
+            background: rgba(120,119,198,0.3);
+            border: 1px solid #7877c6;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .retry-btn:hover {
+            background: rgba(120,119,198,0.5);
+        }
+
+        /* 移动端适配 - 精简重复样式 */
         @media (max-width: 768px) {
-            /* 缩小轨道和星球尺寸 */
-            .orbit {
-                width: 400px;
-                height: 400px;
-            }
-
-            .nebula-planet {
-                width: 90px;
-                height: 90px;
-            }
-
-            .center-title h1 {
-                font-size: 2rem;
-            }
-
-            .center-title p {
-                font-size: 0.9rem;
-            }
-
-            .planet-title {
-                font-size: 0.85rem;
-            }
-
-            .planet-brief {
-                font-size: 0.65rem;
-            }
-
-            /* 调整星球位置 */
-            #about { top: 0; left: 50%; }
-            #projects { top: 15%; right: 10%; }
-            #community { bottom: 15%; right: 10%; }
-            #guide { bottom: 0; right: 25%; }
-            #contributors { bottom: 0; left: 50%; }
-            #links { bottom: 15%; left: 10%; }
-            #join { top: 15%; left: 10%; }
-
-            /* 详情弹窗适配 */
-            .planet-detail {
-                padding: 20px;
-            }
-
-            .detail-content {
-                padding: 20px;
-            }
-
-            .detail-header h2 {
-                font-size: 1.8rem;
-            }
-
-            /* 导航菜单适配 */
             .nav-menu {
                 width: 200px;
                 right: 10px;
@@ -516,26 +481,13 @@
                 height: 45px;
                 font-size: 1rem;
             }
-        }
 
-        @media (max-width: 480px) {
-            .orbit {
-                width: 300px;
-                height: 300px;
-            }
-
-            .nebula-planet {
-                width: 70px;
-                height: 70px;
-            }
-
-            .planet-title {
-                font-size: 0.75rem;
-            }
-
-            .planet-brief {
-                display: none;
-            }
+            /* 星球位置微调 */
+            #projects { top: 15%; right: 10%; }
+            #community { bottom: 15%; right: 10%; }
+            #guide { bottom: 0; right: 25%; }
+            #links { bottom: 15%; left: 10%; }
+            #join { top: 15%; left: 10%; }
         }
     </style>
 </head>
@@ -560,65 +512,51 @@
         </ul>
     </div>
 
-    <!-- 星球环绕容器 -->
+    <!-- 星球容器 -->
     <div class="nebula-container">
-        <!-- 中心标题 -->
         <div class="center-title">
             <h1>NebulaCommune</h1>
             <p>汇聚星光 · 共筑未来</p>
         </div>
 
-        <!-- 星球轨道 -->
         <div class="orbit">
-            <!-- 关于我们星球 -->
+            <!-- 星球列表 -->
             <div class="nebula-planet" id="about" data-target="about-detail">
                 <div class="planet-core">
                     <div class="planet-title">关于我们</div>
                     <div class="planet-brief">开放包容的社区</div>
                 </div>
             </div>
-
-            <!-- 核心项目星球 -->
             <div class="nebula-planet" id="projects" data-target="projects-detail">
                 <div class="planet-core">
                     <div class="planet-title">核心项目</div>
                     <div class="planet-brief">共建开源成果</div>
                 </div>
             </div>
-
-            <!-- 社区生态星球 -->
             <div class="nebula-planet" id="community" data-target="community-detail">
                 <div class="planet-core">
                     <div class="planet-title">社区生态</div>
                     <div class="planet-brief">轻松交流协作</div>
                 </div>
             </div>
-
-            <!-- 贡献指南星球 -->
             <div class="nebula-planet" id="guide" onclick="window.location.href='/guide.html'">
                 <div class="planet-core">
                     <div class="planet-title">贡献指南</div>
                     <div class="planet-brief">共建社区的方式</div>
                 </div>
             </div>
-
-            <!-- 贡献者星球 -->
             <div class="nebula-planet" id="contributors" data-target="contributors-detail">
                 <div class="planet-core">
                     <div class="planet-title">贡献者</div>
                     <div class="planet-brief">感谢星光同行者</div>
                 </div>
             </div>
-
-            <!-- 友情链接星球 -->
             <div class="nebula-planet" id="links" data-target="links-detail">
                 <div class="planet-core">
                     <div class="planet-title">友情链接</div>
                     <div class="planet-brief">连接技术同好</div>
                 </div>
             </div>
-
-            <!-- 加入我们星球 -->
             <div class="nebula-planet" id="join" data-target="join-detail">
                 <div class="planet-core">
                     <div class="planet-title">加入我们</div>
@@ -628,7 +566,7 @@
         </div>
     </div>
 
-    <!-- 关于我们详情弹窗 -->
+    <!-- 详情弹窗模板 -->
     <div class="planet-detail" id="about-detail">
         <div class="detail-content">
             <div class="detail-header">
@@ -646,7 +584,6 @@
         </div>
     </div>
 
-    <!-- 核心项目详情弹窗 -->
     <div class="planet-detail" id="projects-detail">
         <div class="detail-content">
             <div class="detail-header">
@@ -654,36 +591,14 @@
                 <button class="close-detail">×</button>
             </div>
             <div class="detail-body">
-                <div class="project-grid">
-                    {{ $apiUrl := .Site.Params.github_api_url }}
-                    {{ $repos := slice }}
-                    {{ if $apiUrl }}
-                        {{ $resp := resources.GetRemote $apiUrl }}
-                        {{ if $resp }}
-                            {{ $repos = $resp | transform.Unmarshal }}
-                        {{ else }}
-                            {{ warnf "Failed to fetch GitHub repos: API URL is invalid or unreachable" }}
-                        {{ end }}
-                    {{ end }}
-                    {{ if eq (len $repos) 0 }}
-                        <p>暂无公开项目，敬请期待...</p>
-                    {{ else }}
-                        {{ range $repos }}
-                            {{ if not .private }}
-                            <div class="project-card">
-                                <h3><a href="{{ .html_url }}" target="_blank">{{ .name }}</a></h3>
-                                <p class="project-desc">{{ default "暂无简介" .description }}</p>
-                                <span class="project-lang">{{ default "未知" .language }}</span>
-                            </div>
-                            {{ end }}
-                        {{ end }}
-                    {{ end }}
+                <div class="project-grid" id="projectGrid">
+                    <div class="loading-spinner"></div>
+                    <p style="text-align: center;">正在加载项目数据...</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- 社区生态详情弹窗 -->
     <div class="planet-detail" id="community-detail">
         <div class="detail-content">
             <div class="detail-header">
@@ -709,7 +624,6 @@
         </div>
     </div>
 
-    <!-- 贡献者详情弹窗 -->
     <div class="planet-detail" id="contributors-detail">
         <div class="detail-content">
             <div class="detail-header">
@@ -726,7 +640,6 @@
         </div>
     </div>
 
-    <!-- 友情链接详情弹窗 -->
     <div class="planet-detail" id="links-detail">
         <div class="detail-content">
             <div class="detail-header">
@@ -744,7 +657,6 @@
         </div>
     </div>
 
-    <!-- 加入我们详情弹窗 -->
     <div class="planet-detail" id="join-detail">
         <div class="detail-content">
             <div class="detail-header">
@@ -763,319 +675,492 @@
     </div>
 
     <script>
-        // ===================== 全局配置 =====================
-        const CONFIG = {
+        // ========== 1. 配置模块（统一管理配置） ==========
+        const AppConfig = {
             orgName: 'NebulaCommune',
-            cacheKeys: {
+            cache: {
                 contributors: 'nebula_contributors_cache',
-                contributorsTime: 'nebula_contributors_cache_time'
+                contributorsTime: 'nebula_contributors_cache_time',
+                repos: 'nebula_repos_cache',
+                reposTime: 'nebula_repos_cache_time'
             },
-            apiBaseUrl: 'https://api.github.com',
-            cacheExpireMs: 24 * 60 * 60 * 1000,
-            batchSize: 5,
-            requestTimeout: 10000,
-            githubToken: ''
+            api: {
+                baseUrl: 'https://api.github.com',
+                perPage: 100,
+                timeout: 10000,
+                batchSize: 5,
+                delay: 100, // 请求间隔（防限流）
+                token: '' // 可选：GitHub Token
+            },
+            cacheExpire: 24 * 60 * 60 * 1000, // 24小时缓存
+            performance: {
+                starCount: navigator.hardwareConcurrency < 4 || window.innerWidth < 768 ? 150 : 400
+            }
         };
 
-        // ===================== 工具函数 =====================
-        const storage = {
-            get: (key) => {
-                try {
-                    return localStorage.getItem(key);
-                } catch (e) {
-                    console.warn('本地存储不可用:', e);
-                    return null;
+        // ========== 2. 工具函数模块（复用逻辑） ==========
+        const Utils = {
+            // 本地存储封装
+            storage: {
+                get(key) {
+                    try {
+                        return localStorage.getItem(key);
+                    } catch (e) {
+                        console.warn('本地存储不可用:', e);
+                        return null;
+                    }
+                },
+                set(key, value) {
+                    try {
+                        localStorage.setItem(key, value);
+                    } catch (e) {
+                        console.warn('本地存储不可用:', e);
+                    }
                 }
             },
-            set: (key, value) => {
+
+            // 带超时的请求
+            fetchWithTimeout(url, options = {}) {
+                return Promise.race([
+                    fetch(url, options),
+                    new Promise((_, reject) => 
+                        setTimeout(() => reject(new Error('请求超时')), options.timeout || AppConfig.api.timeout)
+                    )
+                ]);
+            },
+
+            // 创建请求头
+            createRequestHeaders() {
+                const headers = { 'Accept': 'application/vnd.github.v3+json' };
+                if (AppConfig.api.token) {
+                    headers['Authorization'] = `token ${AppConfig.api.token}`;
+                }
+                return headers;
+            },
+
+            // 防抖函数
+            debounce(fn, delay) {
+                let timer = null;
+                return (...args) => {
+                    clearTimeout(timer);
+                    timer = setTimeout(() => fn.apply(this, args), delay);
+                };
+            }
+        };
+
+        // ========== 3. GitHub API 模块（统一处理API请求） ==========
+        const GitHubAPI = {
+            // 获取所有仓库（处理分页）
+            async getAllRepos() {
+                const now = Date.now();
+                // 优先读取缓存
+                const cached = Utils.storage.get(AppConfig.cache.repos);
+                const cachedTime = Utils.storage.get(AppConfig.cache.reposTime);
+                
+                if (cached && cachedTime && (now - parseInt(cachedTime) < AppConfig.cacheExpire)) {
+                    return JSON.parse(cached).filter(repo => !repo.private);
+                }
+
+                const headers = Utils.createRequestHeaders();
+                let allRepos = [];
+                let page = 1;
+                let hasMore = true;
+
+                while (hasMore) {
+                    try {
+                        const url = `${AppConfig.api.baseUrl}/orgs/${AppConfig.orgName}/repos?per_page=${AppConfig.api.perPage}&page=${page}`;
+                        const resp = await Utils.fetchWithTimeout(url, { headers, timeout: AppConfig.api.timeout });
+                        
+                        if (!resp.ok) throw new Error(`API 错误: ${resp.status}`);
+                        const pageRepos = await resp.json();
+                        
+                        if (pageRepos.length === 0) {
+                            hasMore = false;
+                            break;
+                        }
+
+                        allRepos = [...allRepos, ...pageRepos];
+                        page++;
+                        await new Promise(resolve => setTimeout(resolve, AppConfig.api.delay));
+                    } catch (err) {
+                        console.error('获取仓库失败:', err);
+                        throw err;
+                    }
+                }
+
+                // 过滤公开仓库并缓存
+                const publicRepos = allRepos.filter(repo => !repo.private);
+                Utils.storage.set(AppConfig.cache.repos, JSON.stringify(publicRepos));
+                Utils.storage.set(AppConfig.cache.reposTime, now.toString());
+                
+                return publicRepos;
+            },
+
+            // 获取所有贡献者
+            async getAllContributors() {
+                const now = Date.now();
+                // 优先读取缓存
+                const cached = Utils.storage.get(AppConfig.cache.contributors);
+                const cachedTime = Utils.storage.get(AppConfig.cache.contributorsTime);
+                
+                if (cached && cachedTime && (now - parseInt(cachedTime) < AppConfig.cacheExpire)) {
+                    return JSON.parse(cached);
+                }
+
                 try {
-                    localStorage.setItem(key, value);
-                } catch (e) {
-                    console.warn('本地存储不可用:', e);
+                    // 先获取所有公开仓库
+                    const repos = await this.getAllRepos();
+                    const contributorsMap = new Map();
+                    const headers = Utils.createRequestHeaders();
+
+                    // 批量获取贡献者
+                    for (let i = 0; i < repos.length; i += AppConfig.api.batchSize) {
+                        const batch = repos.slice(i, i + AppConfig.api.batchSize);
+                        const batchPromises = batch.map(repo => 
+                            Utils.fetchWithTimeout(`${AppConfig.api.baseUrl}/repos/${AppConfig.orgName}/${repo.name}/contributors`, { headers })
+                                .then(resp => resp.ok ? resp.json() : [])
+                                .catch(() => [])
+                        );
+
+                        const batchResults = await Promise.all(batchPromises);
+                        
+                        batchResults.forEach((contributors, idx) => {
+                            const repo = batch[idx];
+                            contributors.forEach(c => {
+                                if (contributorsMap.has(c.login)) {
+                                    contributorsMap.get(c.login).repos.push(repo.name);
+                                } else {
+                                    contributorsMap.set(c.login, {
+                                        login: c.login,
+                                        avatar: c.avatar_url,
+                                        html_url: c.html_url,
+                                        repos: [repo.name],
+                                        contributions: c.contributions
+                                    });
+                                }
+                            });
+                        });
+                    }
+
+                    const contributors = Array.from(contributorsMap.values());
+                    // 缓存数据
+                    Utils.storage.set(AppConfig.cache.contributors, JSON.stringify(contributors));
+                    Utils.storage.set(AppConfig.cache.contributorsTime, now.toString());
+                    
+                    return contributors;
+                } catch (err) {
+                    console.error('获取贡献者失败:', err);
+                    throw err;
                 }
             }
         };
 
-        const fetchWithTimeout = (url, options = {}) => {
-            return Promise.race([
-                fetch(url, options),
-                new Promise((_, reject) => 
-                    setTimeout(() => reject(new Error('请求超时')), options.timeout || CONFIG.requestTimeout)
-                )
-            ]);
+        // ========== 4. UI 渲染模块（统一处理DOM渲染） ==========
+        const UIRenderer = {
+            // 渲染仓库列表
+            renderRepos(repos, containerId) {
+                const container = document.getElementById(containerId);
+                if (!container) return;
+
+                if (repos.length === 0) {
+                    container.innerHTML = '<p style="text-align: center;">暂无公开项目，敬请期待...</p>';
+                    return;
+                }
+
+                container.innerHTML = '';
+                repos.forEach(repo => {
+                    const card = document.createElement('div');
+                    card.className = 'project-card';
+                    card.innerHTML = `
+                        <h3><a href="${repo.html_url}" target="_blank">${repo.name}</a></h3>
+                        <p class="project-desc">${repo.description || '暂无简介'}</p>
+                        ${repo.language ? `<span class="project-lang">${repo.language}</span>` : ''}
+                    `;
+                    container.appendChild(card);
+                });
+            },
+
+            // 渲染贡献者列表
+            renderContributors(contributors, containerId) {
+                const container = document.getElementById(containerId);
+                if (!container) return;
+
+                if (contributors.length === 0) {
+                    container.innerHTML = '<p style="text-align: center;">暂无贡献者，期待你的加入 ✨</p>';
+                    return;
+                }
+
+                container.innerHTML = '';
+                contributors.forEach(c => {
+                    const card = document.createElement('div');
+                    card.className = 'contributor-card';
+                    card.innerHTML = `
+                        <img class="contributor-avatar" 
+                             src="https://picsum.photos/70/70" 
+                             data-src="${c.avatar}" 
+                             alt="${c.login}" 
+                             loading="lazy">
+                        <div class="contributor-name">${c.login}</div>
+                        <div class="contributor-desc">参与了 ${c.repos.length} 个仓库</div>
+                        <a class="contributor-github" href="${c.html_url}" target="_blank">GitHub</a>
+                    `;
+                    
+                    // 图片懒加载
+                    const img = card.querySelector('img');
+                    img.onload = () => img.src = img.dataset.src;
+
+                    container.appendChild(card);
+                });
+            },
+
+            // 渲染错误提示
+            renderError(containerId, message) {
+                const container = document.getElementById(containerId);
+                if (!container) return;
+                
+                container.innerHTML = `
+                    <p class="error-message">加载失败：${message}</p>
+                    <button class="retry-btn" id="retry-${containerId}">重试</button>
+                    <p style="text-align: center;">请检查网络或稍后重试</p>
+                `;
+                
+                // 绑定重试按钮
+                document.getElementById(`retry-${containerId}`).addEventListener('click', () => {
+                    container.innerHTML = '<div class="loading-spinner"></div><p style="text-align: center;">正在重新加载...</p>';
+                    if (containerId === 'projectGrid') {
+                        App.initRepos();
+                    } else if (containerId === 'contributorGrid') {
+                        App.initContributors();
+                    }
+                });
+            },
+
+            // 初始化星空背景（性能优化）
+            initStars() {
+                const canvas = document.getElementById('stars');
+                if (!canvas) {
+                    console.error('星空Canvas元素不存在');
+                    return;
+                }
+                
+                // 兼容获取上下文
+                let ctx;
+                try {
+                    ctx = canvas.getContext('2d');
+                } catch (e) {
+                    console.error('获取Canvas上下文失败:', e);
+                    return;
+                }
+                
+                if (!ctx) {
+                    console.error('不支持Canvas 2D上下文');
+                    return;
+                }
+
+                // 存储星星的数组（改为局部变量，避免全局污染）
+                let stars = [];
+
+                // 响应式画布尺寸
+                const resizeCanvas = Utils.debounce(() => {
+                    canvas.width = window.innerWidth;
+                    canvas.height = window.innerHeight;
+                    // 重新创建星星
+                    stars = [];
+                    for (let i = 0; i < AppConfig.performance.starCount; i++) {
+                        stars.push(new Star(ctx, canvas.width, canvas.height));
+                    }
+                }, 200);
+
+                // 初始调整尺寸
+                resizeCanvas();
+                window.addEventListener('resize', resizeCanvas);
+
+                // 优化动画循环
+                function animate() {
+                    // 清空画布
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    
+                    // 更新并绘制所有星星
+                    for (let i = 0; i < stars.length; i++) {
+                        stars[i].update();
+                    }
+                    
+                    // 继续动画
+                    requestAnimationFrame(animate);
+                }
+
+                // 启动动画
+                animate();
+            }
         };
 
-        // ===================== 星空粒子背景 =====================
-        const canvas = document.getElementById('stars');
-        const ctx = canvas.getContext?.('2d');
-        let w, h;
-        const starsArr = [];
-        
-        const isLowPerformance = navigator.hardwareConcurrency < 4 || window.innerWidth < 768;
-        const starCount = isLowPerformance ? 150 : 400;
-
+        // ========== 5. 星星类（封装粒子逻辑） ==========
         class Star {
-            constructor(){
-                this.x = Math.random()*w;
-                this.y = Math.random()*h;
-                this.r = Math.random()*1.5;
-                this.speed = Math.random()*0.2;
-                this.alpha = Math.random();
+            constructor(ctx, canvasWidth, canvasHeight) {
+                this.ctx = ctx;
+                this.x = Math.random() * canvasWidth;
+                this.y = Math.random() * canvasHeight;
+                // 增大星星尺寸，确保可见
+                this.r = Math.random() * 1.2 + 0.3;
+                // 调整速度，让动画更明显
+                this.speed = Math.random() * 0.3 + 0.1;
+                // 初始透明度，确保星星可见
+                this.alpha = Math.random() * 0.8 + 0.2;
+                this.baseAlpha = this.alpha;
             }
-            draw(){
-                if (!ctx) return;
-                ctx.beginPath();
-                ctx.arc(this.x,this.y,this.r,0,Math.PI*2);
-                ctx.fillStyle = `rgba(255,255,255,${this.alpha})`;
-                ctx.fill();
+
+            // 绘制星星
+            draw() {
+                this.ctx.beginPath();
+                this.ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+                this.ctx.fillStyle = `rgba(255,255,255,${this.alpha})`;
+                this.ctx.fill();
             }
-            update(){
+
+            // 更新星星位置和透明度
+            update() {
+                // 垂直移动
                 this.y += this.speed;
-                this.alpha = Math.sin(Date.now() * 0.001 + this.x * 0.1) * 0.5 + 0.5;
-                if(this.y > h) this.y = 0;
+                
+                // 透明度呼吸效果（优化计算，确保不透明）
+                this.alpha = Math.sin(Date.now() * 0.0005 + this.x * 0.01) * 0.3 + this.baseAlpha;
+                
+                // 超出画布重置位置
+                if (this.y > this.ctx.canvas.height) {
+                    this.y = 0;
+                    this.x = Math.random() * this.ctx.canvas.width;
+                }
+                
+                // 绘制
                 this.draw();
             }
         }
 
-        function initStars(){
-            if (!ctx) return;
-            starsArr.length = 0;
-            for(let i=0; i<starCount; i++) starsArr.push(new Star());
-        }
+        // ========== 6. 应用主逻辑 ==========
+        const App = {
+            // 初始化
+            init() {
+                // 初始化星空背景（优先执行）
+                UIRenderer.initStars();
+                // 绑定事件
+                this.bindEvents();
+                // 预加载贡献者数据
+                this.initContributors();
+            },
 
-        function animateStars(){
-            if (!ctx) return;
-            ctx.clearRect(0,0,w,h);
-            starsArr.forEach(s=>s.update());
-            requestAnimationFrame(animateStars);
-        }
+            // 绑定所有事件
+            bindEvents() {
+                // 菜单按钮
+                const menuBtn = document.getElementById('menuBtn');
+                const navMenu = document.getElementById('navMenu');
+                
+                menuBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    navMenu.classList.toggle('active');
+                });
 
-        try {
-            w = canvas.width = window.innerWidth;
-            h = canvas.height = window.innerHeight;
-            initStars(); 
-            animateStars();
-        } catch (e) {
-            console.error('星空粒子初始化失败:', e);
-            canvas.style.display = 'none';
-        }
+                // 点击空白处关闭菜单
+                document.addEventListener('click', (e) => {
+                    if (!navMenu.contains(e.target) && e.target !== menuBtn) {
+                        navMenu.classList.remove('active');
+                    }
+                });
 
-        window.onresize = ()=>{
-            if (!ctx) return;
-            w = canvas.width = window.innerWidth;
-            h = canvas.height = window.innerHeight;
-            initStars();
+                // 星球点击事件
+                document.querySelectorAll('.nebula-planet:not(#guide)').forEach(planet => {
+                    planet.addEventListener('click', () => {
+                        const targetId = planet.getAttribute('data-target');
+                        this.showDetail(targetId);
+                        this.updateNavActive(planet.id);
+                        navMenu.classList.remove('active');
+                        
+                        // 加载项目数据
+                        if (planet.id === 'projects') {
+                            this.initRepos();
+                        }
+                    });
+                });
+
+                // 导航链接点击
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        if (link.getAttribute('href') === '/guide.html') return;
+                        e.preventDefault();
+                        const targetId = link.getAttribute('data-target');
+                        const planet = document.getElementById(targetId);
+                        if (planet) {
+                            const detailId = planet.getAttribute('data-target');
+                            this.showDetail(detailId);
+                            this.updateNavActive(targetId);
+                            navMenu.classList.remove('active');
+                            
+                            if (targetId === 'projects') {
+                                this.initRepos();
+                            }
+                        }
+                    });
+                });
+
+                // 关闭详情弹窗
+                document.querySelectorAll('.close-detail').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const detail = btn.closest('.planet-detail');
+                        detail.classList.remove('active');
+                        document.body.style.overflow = '';
+                    });
+                });
+            },
+
+            // 显示详情弹窗
+            showDetail(detailId) {
+                document.querySelectorAll('.planet-detail').forEach(detail => {
+                    detail.classList.remove('active');
+                });
+                
+                const target = document.getElementById(detailId);
+                if (target) {
+                    target.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }
+            },
+
+            // 更新导航高亮
+            updateNavActive(activeId) {
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('data-target') === activeId) {
+                        link.classList.add('active');
+                    }
+                });
+            },
+
+            // 初始化仓库数据
+            async initRepos() {
+                const container = document.getElementById('projectGrid');
+                try {
+                    const repos = await GitHubAPI.getAllRepos();
+                    UIRenderer.renderRepos(repos, 'projectGrid');
+                } catch (err) {
+                    UIRenderer.renderError('projectGrid', err.message);
+                }
+            },
+
+            // 初始化贡献者数据
+            async initContributors() {
+                const container = document.getElementById('contributorGrid');
+                try {
+                    const contributors = await GitHubAPI.getAllContributors();
+                    UIRenderer.renderContributors(contributors, 'contributorGrid');
+                } catch (err) {
+                    UIRenderer.renderError('contributorGrid', err.message);
+                }
+            }
         };
 
-        // ===================== 菜单按钮交互 =====================
-        const menuBtn = document.getElementById('menuBtn');
-        const navMenu = document.getElementById('navMenu');
-        const navLinks = document.querySelectorAll('.nav-link');
-
-        // 切换菜单显示/隐藏
-        menuBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            navMenu.classList.toggle('active');
-        });
-
-        // 点击页面其他区域关闭菜单
-        document.addEventListener('click', (e) => {
-            if (!navMenu.contains(e.target) && e.target !== menuBtn) {
-                navMenu.classList.remove('active');
-            }
-        });
-
-        // ===================== 星球交互 =====================
-        const planets = document.querySelectorAll('.nebula-planet:not(#guide)');
-        const planetDetails = document.querySelectorAll('.planet-detail');
-        const closeButtons = document.querySelectorAll('.close-detail');
-
-        // 点击星球显示详情
-        planets.forEach(planet => {
-            planet.addEventListener('click', () => {
-                const targetId = planet.getAttribute('data-target');
-                showPlanetDetail(targetId);
-                
-                // 更新导航高亮
-                updateNavActive(planet.id);
-                
-                // 关闭菜单
-                navMenu.classList.remove('active');
-            });
-        });
-
-        // 导航链接点击显示对应星球详情
-        navLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                if (link.getAttribute('href') === '/guide.html') return;
-                e.preventDefault();
-                const targetId = link.getAttribute('data-target');
-                const planet = document.getElementById(targetId);
-                if (planet) {
-                    const detailId = planet.getAttribute('data-target');
-                    showPlanetDetail(detailId);
-                    updateNavActive(targetId);
-                    navMenu.classList.remove('active');
-                }
-            });
-        });
-
-        // 关闭详情弹窗
-        closeButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const detail = btn.closest('.planet-detail');
-                detail.classList.remove('active');
-                // 恢复页面滚动
-                document.body.style.overflow = '';
-            });
-        });
-
-        // 显示星球详情
-        function showPlanetDetail(detailId) {
-            // 隐藏所有详情
-            planetDetails.forEach(detail => {
-                detail.classList.remove('active');
-            });
-            
-            // 显示目标详情
-            const targetDetail = document.getElementById(detailId);
-            if (targetDetail) {
-                targetDetail.classList.add('active');
-                // 禁止页面滚动
-                document.body.style.overflow = 'hidden';
-            }
-        }
-
-        // 更新导航高亮
-        function updateNavActive(activeId) {
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('data-target') === activeId) {
-                    link.classList.add('active');
-                }
-            });
-        }
-
-        // ===================== 贡献者数据加载 =====================
-        async function fetchContributors() {
-            const repoGrid = document.getElementById('contributorGrid');
-            
-            const cachedData = storage.get(CONFIG.cacheKeys.contributors);
-            const cachedTime = storage.get(CONFIG.cacheKeys.contributorsTime);
-            const now = Date.now();
-
-            if (cachedData && cachedTime && (now - parseInt(cachedTime) < CONFIG.cacheExpireMs)) {
-                const contributors = JSON.parse(cachedData);
-                renderContributors(contributors);
-                return;
-            }
-
-            const requestOptions = {
-                method: 'GET',
-                headers: {
-                    'Accept': 'application/vnd.github.v3+json'
-                },
-                timeout: CONFIG.requestTimeout
-            };
-
-            if (CONFIG.githubToken) {
-                requestOptions.headers['Authorization'] = `token ${CONFIG.githubToken}`;
-            }
-
-            try {
-                const reposResp = await fetchWithTimeout(
-                    `${CONFIG.apiBaseUrl}/orgs/${CONFIG.orgName}/repos`, 
-                    requestOptions
-                );
-                
-                if (!reposResp.ok) throw new Error(`GitHub API 错误: ${reposResp.status}`);
-                const repos = await reposResp.json();
-
-                const contributorsMap = new Map();
-                const publicRepos = repos.filter(repo => !repo.private);
-
-                for (let i = 0; i < publicRepos.length; i += CONFIG.batchSize) {
-                    const batch = publicRepos.slice(i, i + CONFIG.batchSize);
-                    const batchPromises = batch.map(repo => 
-                        fetchWithTimeout(`${CONFIG.apiBaseUrl}/repos/${CONFIG.orgName}/${repo.name}/contributors`, requestOptions)
-                            .then(resp => resp.ok ? resp.json() : [])
-                            .catch(() => [])
-                    );
-
-                    const batchResults = await Promise.all(batchPromises);
-                    
-                    batchResults.forEach((contribs, idx) => {
-                        const repo = batch[idx];
-                        contribs.forEach(c => {
-                            if (contributorsMap.has(c.login)) {
-                                contributorsMap.get(c.login).repos.push(repo.name);
-                            } else {
-                                contributorsMap.set(c.login, {
-                                    login: c.login,
-                                    avatar: c.avatar_url,
-                                    html_url: c.html_url,
-                                    repos: [repo.name],
-                                    contributions: c.contributions
-                                });
-                            }
-                        });
-                    });
-                }
-
-                const contributors = Array.from(contributorsMap.values());
-                storage.set(CONFIG.cacheKeys.contributors, JSON.stringify(contributors));
-                storage.set(CONFIG.cacheKeys.contributorsTime, now.toString());
-                renderContributors(contributors);
-
-            } catch (err) {
-                console.error('获取贡献者失败:', err);
-                repoGrid.innerHTML = `
-                    <div class="contributor-card">
-                        <img class="contributor-avatar" src="https://picsum.photos/70/70" alt="默认头像">
-                        <div class="contributor-name">加载失败</div>
-                        <div class="contributor-desc">请稍后刷新页面</div>
-                        <a class="contributor-github" href="https://github.com/${CONFIG.orgName}" target="_blank">查看组织</a>
-                    </div>
-                `;
-            }
-        }
-
-        function renderContributors(contributors) {
-            const repoGrid = document.getElementById('contributorGrid');
-            repoGrid.innerHTML = '';
-
-            if (contributors.length === 0) {
-                repoGrid.innerHTML = '<p style="text-align: center;">暂无贡献者，期待你的加入 ✨</p>';
-                return;
-            }
-
-            contributors.forEach(c => {
-                const card = document.createElement('div');
-                card.className = 'contributor-card';
-                
-                card.innerHTML = `
-                    <img class="contributor-avatar" 
-                         src="https://picsum.photos/70/70" 
-                         data-src="${c.avatar}" 
-                         alt="${c.login}" 
-                         loading="lazy">
-                    <div class="contributor-name">${c.login}</div>
-                    <div class="contributor-desc">参与了 ${c.repos.length} 个仓库</div>
-                    <a class="contributor-github" href="${c.html_url}" target="_blank">GitHub</a>
-                `;
-                
-                const img = card.querySelector('img');
-                img.onload = () => {
-                    img.src = img.dataset.src;
-                };
-
-                repoGrid.appendChild(card);
-            });
-        }
-
-        // 页面加载完成后拉取贡献者
+        // 页面加载完成后初始化应用
         window.addEventListener('load', () => {
-            fetchContributors();
+            // 确保DOM完全加载
+            setTimeout(() => App.init(), 100);
         });
     </script>
 </body>
